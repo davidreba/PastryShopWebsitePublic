@@ -7,6 +7,14 @@ body {
     text-align: center;
 }
 
+html {
+    scroll-behavior: smooth;
+    /* For older browsers */
+    -webkit-scroll-behavior: smooth; /* Safari */
+    -moz-scroll-behavior: smooth; /* Firefox */
+    -ms-scroll-behavior: smooth; /* Internet Explorer */
+}
+
 /* Heading styles */
 h1 {
     color: #333;
@@ -130,6 +138,17 @@ img {
     background-color: #ff4b4b;
 }
 
-html {
-    scroll-behavior: smooth;
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.product-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+.product-item img {
+    max-width: 100%;
+    height: auto;
 }
