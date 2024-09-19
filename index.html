@@ -78,6 +78,8 @@
         <p>Per richieste, inviaci un'e-mail a: agnesededonatis@gmail.com</p>
     </section>
 
+    <script src="scripts.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
     $(document).ready(function(){
@@ -109,9 +111,10 @@
     <script>
         // Initialize an empty cart
         let cart = [];
-    
+
         // Function to add item to cart
         function addToCart(productId, price) {
+            console.log(`Adding product ${productId} with price ${price} to cart.`);
             let item = cart.find(item => item.productId === productId);
             if (item) {
                 item.quantity += 1;
@@ -120,7 +123,7 @@
             }
             updateCartUI();
         }
-    
+
         // Function to update cart UI
         function updateCartUI() {
             let cartItems = document.getElementById('cart-items');
@@ -134,7 +137,7 @@
             });
             cartTotal.textContent = total.toFixed(2);
         }
-    
+
         // Event listener for 'Add to Cart' button
         document.querySelectorAll('.add-to-cart').forEach(button => {
             button.addEventListener('click', function() {
@@ -143,12 +146,11 @@
                 addToCart(productId, price);
             });
         });
-    
+
         // Event listener for 'Checkout' button
-        document.getElementById('checkout').addEventListener('click', function() {
-            // Placeholder for checkout logic
+        document.getElementById('checkout')?.addEventListener('click', function() {
             alert('Checkout functionality is not implemented yet.');
         });
-    </script>    
+    </script>
 </body> 
 </html>
