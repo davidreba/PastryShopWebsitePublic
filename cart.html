@@ -15,10 +15,11 @@
         </ul>
     </nav>
 
-    <div class="cart">
+    <div id="cart" class="cart">
         <h2>Your Shopping Cart</h2>
         <ul id="cart-items"></ul>
-        <p>Total: €<span id="cart-total">0.00</span></p>
+        <p>Total: <span id="cart-total">0.00</span></p>
+        <button onclick="emptyCart()">Empty Cart</button>
         <button id="checkout">Checkout</button>
     </div>
 

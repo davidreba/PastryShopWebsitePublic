@@ -1,16 +1,47 @@
 // Initialize an empty cart
 let cart = [];
 
-// Function to add item to cart
-function addToCart(productId, price) {
-    let item = cart.find(item => item.productId === productId);
-    if (item) {
-        item.quantity += 1;
-    } else {
-        cart.push({ productId, quantity: 1, price });
-    }
+window.onload = function() {
+    loadCart();
     updateCartUI();
-    saveCart(); // Save cart to local storage
+}
+
+function updateCartPreview() {
+    let cartPreviewItems = document.getElementById('cart-preview-items');
+    let cartPreviewTotal = document.getElementById('cart-preview-total');
+    
+    if (!cartPreviewItems || !cartPreviewTotal) {
+        console.error('Required elements are missing from the HTML.');
+        return;
+    }
+
+    cartPreviewItems.innerHTML = ''; // Clear the preview display
+    let total = 0;
+
+    cart.forEach(item => {
+        let itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        cartPreviewItems.innerHTML += `<li>Product ${item.productId} - Qty: ${item.quantity} - €${itemTotal.toFixed(2)}</li>`;
+    });
+
+    cartPreviewTotal.textContent = `€${total.toFixed(2)}`;
+
+    // Show the cart preview
+    document.getElementById('cart-preview').style.display = 'block';
+}
+
+// Update the preview when a product is added
+function addToCart(productId, price) {
+    // Existing logic for adding products to the cart
+    let existingItem = cart.find(item => item.productId === productId);
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({ productId: productId, price: price, quantity: 1 });
+    }
+    saveCart();
+    updateCartUI();
+    updateCartPreview(); // Update the preview
 }
 
 // Function to update cart UI
@@ -23,14 +54,23 @@ function updateCartUI() {
         return;
     }
 
-    cartItems.innerHTML = '';
+    cartItems.innerHTML = ''; // Clear the existing cart items
     let total = 0;
-    cart.forEach(item => {
+
+    cart.forEach((item, index) => {
         let itemTotal = item.price * item.quantity;
         total += itemTotal;
-        cartItems.innerHTML += `<li>Product ${item.productId} - Quantity: ${item.quantity} - Total: €${itemTotal.toFixed(2)}</li>`;
+
+        // Create a list item for each cart product with a "Remove" button
+        cartItems.innerHTML += `
+            <li>
+                Product ${item.productId} - Quantity: ${item.quantity} - Total: €${itemTotal.toFixed(2)}
+                <button onclick="removeFromCart(${index})">Remove</button>
+            </li>`;
     });
-    cartTotal.textContent = total.toFixed(2);
+
+    // Update the total price
+    cartTotal.textContent = `€${total.toFixed(2)}`;
 }
 
 // Function to save cart to local storage
@@ -40,11 +80,24 @@ function saveCart() {
 
 // Function to load cart from local storage
 function loadCart() {
-    let savedCart = localStorage.getItem('cart');
+    const savedCart = localStorage.getItem('cart');
     if (savedCart) {
         cart = JSON.parse(savedCart);
-        updateCartUI();
+    } else {
+        cart = [];
     }
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1); // Remove the item at the given index
+    saveCart();            // Save the updated cart to localStorage
+    updateCartUI();         // Update the cart UI
+}
+
+function emptyCart() {
+    cart = []; // Clear the cart array
+    saveCart(); // Save the empty cart to localStorage
+    updateCartUI(); // Update the cart UI to reflect the empty cart
 }
 
 // Add event listeners for 'Add to Cart' buttons
