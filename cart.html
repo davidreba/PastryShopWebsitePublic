@@ -11,21 +11,33 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="cart.html">Shopping Cart</a>
-        <a href="contact.html">Contact Us</a>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html">Prodotti</a></li>
+            <li><a href="index.html">About Us</a></li>
+            <li><a href="index.html">Contatti</a></li>
+        </ul>
     </nav>
     <main>
         <section class="cart">
             <h1>Your Cart</h1>
             <ul>
-                <li>Product 1 - $XX.XX</li>
-                <li>Product 2 - $XX.XX</li>
+                <li>Product 1 - €XX.XX</li>
+                <li>Product 2 - €XX.XX</li>
                 <!-- List items dynamically here -->
             </ul>
-            <p>Total: $XX.XX</p>
+            <p>Total: €XX.XX</p>
             <button>Proceed to Checkout</button>
+
+            <div class="cart">
+                <h2>Your Shopping Cart</h2>
+                <ul id="cart-items">
+                    <!-- Cart items will be dynamically inserted here -->
+                </ul>
+                <p>Total: €<span id="cart-total">0.00</span></p>
+                <button id="checkout">Checkout</button>                
+            </div>
         </section>
     </main>
 </body>

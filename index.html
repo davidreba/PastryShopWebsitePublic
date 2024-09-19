@@ -13,10 +13,11 @@
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="#top">Home</a></li>
             <li><a href="#products">Prodotti</a></li>
             <li><a href="#aboutus">About Us</a></li>
             <li><a href="#contact">Contatti</a></li>
+            <li><a href="cart.html">Shopping Cart</a></li>
         </ul>
     </nav>
 
@@ -29,10 +30,6 @@
     <img src="images/firstImg.PNG" alt="First Image" style="width:100%; height:auto; border-radius:10px;">
 
     <section id="products" class="product-list">
-        <!-- Product code here -->
-    </section>
-
-    <section class="product-list">
         <h2>I nostri prodotti :</h2>
 
         <div class="product-item">
@@ -41,8 +38,8 @@
                 <h3>TORTA ROMANTICA</h3>
                 <p>Fresca, bucolica, primaverile.</p>
                 <p>Price: €20.00</p>
-                <button>Add to Cart</button>
             </a>
+            <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
         </div>
         
         <div class="product-item">
@@ -51,8 +48,8 @@
                 <h3>FOCACCIA</h3>
                 <p>Solo lievito madre, 28 ore di lenta lievitazione.</p>
                 <p>Prezzo: €7.50</p>
-                <button>Add to Cart</button>
             </a>
+            <button class="add-to-cart" data-product-id="2" data-price="7.50">Add to Cart</button>
         </div>
         
         <div class="product-item">
@@ -61,8 +58,8 @@
                 <h3>PANZANELLA</h3>
                 <p>La panzanella è un piatto freddo, non serve cottura.</p>
                 <p>Prezzo: €15.00</p>
-                <button>Add to Cart</button>
             </a>
+            <button class="add-to-cart" data-product-id="3" data-price="15.00">Add to Cart</button>
         </div>
 
         <div class="product-item">
@@ -71,8 +68,8 @@
                 <h3>CROISSANT</h3>
                 <p>Croissant fatto a mano.</p>
                 <p>Prezzo: €2.00</p>
-                <button>Add to Cart</button>
             </a>
+            <button class="add-to-cart" data-product-id="4" data-price="2.00">Add to Cart</button>
         </div>
     </section>
 
@@ -107,6 +104,51 @@
         } // End if
       });
     });
-    </script> 
+    </script>
+
+    <script>
+        // Initialize an empty cart
+        let cart = [];
+    
+        // Function to add item to cart
+        function addToCart(productId, price) {
+            let item = cart.find(item => item.productId === productId);
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.push({ productId, quantity: 1, price });
+            }
+            updateCartUI();
+        }
+    
+        // Function to update cart UI
+        function updateCartUI() {
+            let cartItems = document.getElementById('cart-items');
+            let cartTotal = document.getElementById('cart-total');
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                let itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                cartItems.innerHTML += `<li>Product ${item.productId} - Quantity: ${item.quantity} - Total: $${itemTotal.toFixed(2)}</li>`;
+            });
+            cartTotal.textContent = total.toFixed(2);
+        }
+    
+        // Event listener for 'Add to Cart' button
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                let productId = this.getAttribute('data-product-id');
+                let price = parseFloat(this.getAttribute('data-price'));
+                addToCart(productId, price);
+            });
+        });
+    
+        // Event listener for 'Checkout' button
+        document.getElementById('checkout').addEventListener('click', function() {
+            // Placeholder for checkout logic
+            alert('Checkout functionality is not implemented yet.');
+        });
+    </script>    
 </body> 
 </html>
