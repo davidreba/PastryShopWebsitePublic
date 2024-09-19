@@ -7,14 +7,70 @@
     <title>Pasticceria Martina</title>
 </head>
 <body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#products">Prodotti</a></li>
+            <li><a href="#aboutus">About Us</a></li>
+            <li><a href="#contact">Contatti</a></li>
+        </ul>
+    </nav>
+
     <h1>Benvenuti nella nostra pasticceria!</h1>
     <p>Vendiamo i migliori prodotti in circolazione!</p>
 
     <h2>Nostri prodotti</h2>
     <p>Offriamo un'ampia gamma di articoli di qualità che soddisfano le tue esigenze.</p>
 
-    <a href="contact.html">Contact Us</a>
+    <li><a href="#contact">Contatti</a></li>
 
-    <img src="https://via.placeholder.com/300" alt="Sample Product">
+    <img src="images/firstImg.PNG" alt="First Image" style="width:100%; height:auto; border-radius:10px;">
+
+    <section id="contact">
+        <h2>Contatti</h2>
+        <p>Per richieste, inviaci un'e-mail a: agnesededonatis@gmail.com</p>
+    </section>
+
+    <section id="products" class="product-list">
+        <!-- Product code here -->
+    </section>
+
+    <section class="product-list">
+        <h2>Our Pastries</h2>
+    
+        <div class="product">
+            <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
+            <h3>TORTA ROMANTICA</h3>
+            <p>Fresca, bucolica, primaverile.</p>
+            <p>Price: €20.00</p>
+            <button>Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <img src="images/prodotto2.PNG" alt="FOCACCIA">
+            <h3>FOCACCIA</h3>
+            <p>Solo lievito madre, 28 ore di lenta lievitazione.</p>
+            <p>Prezzo: €7.50</p>
+            <button>Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <img src="images/prodotto3.PNG" alt="PANZANELLA">
+            <h3>PANZANELLA</h3>
+            <p>La panzanella è un piatto freddo, non serve cottura.</p>
+            <p>Prezzo: €15.00</p>
+            <button>Add to Cart</button>
+        </div>        
+    </section>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>          
 </body>
 </html>
