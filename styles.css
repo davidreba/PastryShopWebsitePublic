@@ -56,35 +56,65 @@ img {
 
 /* Navbar Styles */
 /* Fixed Navbar */
+/* Make the navigation bar fixed at the top */
 .navbar {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
-    background-color: #333;
-    z-index: 1000; /* Ensure it stays on top of other elements */
+    background-color: #ffffff; /* White background similar to the reference */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    z-index: 1000; /* Ensures it stays on top */
+    padding: 20px 0;
+    position: sticky;    
 }
 
 .navbar ul {
-    list-style-type: none;
+    list-style-type: none; /* Remove bullet points */
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Centering the navigation links */
+    gap: 30px; /* Spacing between links */
 }
 
-.navbar li {
-    float: left;
+.navbar ul li {
+    display: inline;
 }
 
-.navbar li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
+.navbar ul li a {
     text-decoration: none;
+    color: #333; /* Dark color for the links */
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    border-radius: 5px; /* Rounded corners for the hover effect */
 }
 
-.navbar li a:hover {
-    background-color: #111;
+.navbar ul li a:hover {
+    background-color: #f5f5f5; /* Light grey hover background */
+    color: #000; /* Darken the text on hover */
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #fff; /* Add background to navbar */
+    z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column; /* Stack the navigation links on smaller screens */
+    }
+
+    .add-to-cart {
+        width: 100%; /* Full-width buttons on mobile */
+        padding: 10px;
+        font-size: 14px;
+    }
 }
 
 /* Add some padding to the body to ensure content isn't hidden behind navbar */
@@ -115,11 +145,36 @@ body {
     background-color: #fff;
 }
 
-.product img {
-    width: 200px;
-    height: auto;
+.product-container {
+    display: flex;
+    flex-wrap: nowrap; /* No wrapping, to ensure horizontal scroll */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    scroll-behavior: smooth;
+    padding: 20px 0; /* Optional: Padding for spacing around products */
+    gap: 10px; /* Spacing between products */
+    width: 100%; /* Full width of container */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS devices */
+}
+
+.product-item {
+    flex: 0 0 45%; /* Ensures two items fit side by side */
+    margin-right: 10px; /* Add some spacing between products */
+    box-sizing: border-box;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 15px;
     border-radius: 10px;
-    margin-bottom: 10px;
+}
+
+.product-item img {
+    width: 100%; /* Full width for uniform image size */
+    height: 200px; /* Fixed height */
+    object-fit: cover; /* Crop the image to fit */
+    border-radius: 5px;
+}
+
+.product-container::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
 }
 
 .product h3 {
@@ -151,15 +206,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-}
-.product-item {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-}
-.product-item img {
-    max-width: 100%;
-    height: auto;
 }
 
 /* Basic styling for cart */
@@ -205,14 +251,74 @@ body {
 }
  
 /* Cart preview styles */
+/* Cart preview container */
 .cart-preview {
     position: fixed;
-    right: 20px;
-    top: 60px; /* Adjust based on navbar height */
-    width: 250px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    padding: 10px;
-    display: none; /* Hidden by default */
+    top: 110px; /* Adjust depending on your navbar height */
+    right: 10px; /* Initially off-screen */
+    width: 300px;
+    height: auto;
+    background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform: translateX(100%); /* hide the cart preview initially */
+    opacity: 0;
+}
+
+/* Visible state for the cart preview */
+.cart-preview.show {
+    transform: translateX(0); /* show the cart preview */
+    opacity: 1;
+}
+
+/* Cart item styling inside preview */
+.cart-preview ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cart-preview ul li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.cart-preview h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.close-cart-preview {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.close-cart-preview:hover {
+    color: red;
+}
+
+.add-to-cart {
+    background-color: #4CAF50; /* Green background similar to the reference */
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+.add-to-cart:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
 }

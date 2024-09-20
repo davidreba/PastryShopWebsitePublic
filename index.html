@@ -33,50 +33,52 @@
         <h2>I nostri prodotti :</h2>
         <!-- Cart Preview Area -->
         <div id="cart-preview" class="cart-preview">
+            <button class="close-cart-preview" onclick="closeCartPreview()">X</button>
             <h3>Cart Preview</h3>
             <ul id="cart-preview-items"></ul>
             <p>Total: <span id="cart-preview-total">€0.00</span></p>
             <a href="cart.html">View Full Cart</a>
         </div>
+        <div class="product-container">
+            <div class="product-item">
+                <a href="product.html">
+                    <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
+                    <h3>TORTA ROMANTICA</h3>
+                    <p>Fresca, bucolica, primaverile.</p>
+                    <p>Price: €20.00</p>
+                </a>
+                <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
+            </div>
+            
+            <div class="product-item">
+                <a href="product.html">
+                    <img src="images/prodotto2.PNG" alt="FOCACCIA">
+                    <h3>FOCACCIA</h3>
+                    <p>Solo lievito madre, 28 ore di lenta lievitazione.</p>
+                    <p>Prezzo: €7.50</p>
+                </a>
+                <button class="add-to-cart" data-product-id="2" data-price="7.50">Add to Cart</button>
+            </div>
+            
+            <div class="product-item">
+                <a href="product.html">
+                    <img src="images/prodotto3.PNG" alt="PANZANELLA">
+                    <h3>PANZANELLA</h3>
+                    <p>La panzanella è un piatto freddo, non serve cottura.</p>
+                    <p>Prezzo: €15.00</p>
+                </a>
+                <button class="add-to-cart" data-product-id="3" data-price="15.00">Add to Cart</button>
+            </div>
 
-        <div class="product-item">
-            <a href="product.html">
-                <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
-                <h3>TORTA ROMANTICA</h3>
-                <p>Fresca, bucolica, primaverile.</p>
-                <p>Price: €20.00</p>
-            </a>
-            <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
-        </div>
-        
-        <div class="product-item">
-            <a href="product.html">
-                <img src="images/prodotto2.PNG" alt="FOCACCIA">
-                <h3>FOCACCIA</h3>
-                <p>Solo lievito madre, 28 ore di lenta lievitazione.</p>
-                <p>Prezzo: €7.50</p>
-            </a>
-            <button class="add-to-cart" data-product-id="2" data-price="7.50">Add to Cart</button>
-        </div>
-        
-        <div class="product-item">
-            <a href="product.html">
-                <img src="images/prodotto3.PNG" alt="PANZANELLA">
-                <h3>PANZANELLA</h3>
-                <p>La panzanella è un piatto freddo, non serve cottura.</p>
-                <p>Prezzo: €15.00</p>
-            </a>
-            <button class="add-to-cart" data-product-id="3" data-price="15.00">Add to Cart</button>
-        </div>
-
-        <div class="product-item">
-            <a href="product.html">
-                <img src="images/prodotto4.PNG" alt="CROISSANT">
-                <h3>CROISSANT</h3>
-                <p>Croissant fatto a mano.</p>
-                <p>Prezzo: €2.00</p>
-            </a>
-            <button class="add-to-cart" data-product-id="4" data-price="2.00">Add to Cart</button>
+            <div class="product-item">
+                <a href="product.html">
+                    <img src="images/prodotto4.PNG" alt="CROISSANT">
+                    <h3>CROISSANT</h3>
+                    <p>Croissant fatto a mano.</p>
+                    <p>Prezzo: €2.00</p>
+                </a>
+                <button class="add-to-cart" data-product-id="4" data-price="2.00">Add to Cart</button>
+            </div>
         </div>
     </section>
 
@@ -112,6 +114,49 @@
       });
     });
     </script>
+    <script>
+        const productContainer = document.querySelector('.product-container');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+    
+        productContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            productContainer.classList.add('active');
+            startX = e.pageX - productContainer.offsetLeft;
+            scrollLeft = productContainer.scrollLeft;
+        });
+    
+        productContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            productContainer.classList.remove('active');
+        });
+    
+        productContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            productContainer.classList.remove('active');
+        });
+    
+        productContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - productContainer.offsetLeft;
+            const walk = (x - startX) * 3; // The * 3 value controls the scroll speed
+            productContainer.scrollLeft = scrollLeft - walk;
+        });
+    
+        // Touch support for mobile devices
+        productContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].pageX - productContainer.offsetLeft;
+            scrollLeft = productContainer.scrollLeft;
+        });
+    
+        productContainer.addEventListener('touchmove', (e) => {
+            const x = e.touches[0].pageX - productContainer.offsetLeft;
+            const walk = (x - startX) * 3;
+            productContainer.scrollLeft = scrollLeft - walk;
+        });
+    </script>    
     <script src="scripts.js"></script>
 </body> 
 </html>

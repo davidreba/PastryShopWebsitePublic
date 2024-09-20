@@ -115,3 +115,34 @@ document.addEventListener('DOMContentLoaded', function() {
         loadCart();
     }
 });
+
+function toggleCartPreview() {
+    let cartPreview = document.querySelector('.cart-preview');
+    
+    if (cartPreview) {
+        cartPreview.classList.toggle('show'); // Toggle the class 'show' to apply animation
+    }
+}
+
+function showCartPreview() {
+    let cartPreview = document.querySelector('.cart-preview');
+    
+    if (cartPreview && !cartPreview.classList.contains('show')) {
+        cartPreview.classList.add('show'); // Only add the 'show' class if it isn't already shown
+    }
+}
+
+function closeCartPreview() {
+    let cartPreview = document.querySelector('.cart-preview');
+    
+    if (cartPreview && cartPreview.classList.contains('show')) {
+        cartPreview.classList.remove('show'); // Remove the 'show' class to hide the cart preview
+    }
+}
+
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', () => {
+        // Your existing add-to-cart logic here
+        showCartPreview(); // Show the cart preview after adding an item
+    });
+});
