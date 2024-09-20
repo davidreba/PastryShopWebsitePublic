@@ -124,25 +124,26 @@ function toggleCartPreview() {
     }
 }
 
+// Show the cart preview only if it's not already visible
 function showCartPreview() {
     let cartPreview = document.querySelector('.cart-preview');
-    
     if (cartPreview && !cartPreview.classList.contains('show')) {
-        cartPreview.classList.add('show'); // Only add the 'show' class if it isn't already shown
+        cartPreview.classList.add('show');
     }
 }
 
+// Close the cart preview when the X button is clicked
 function closeCartPreview() {
     let cartPreview = document.querySelector('.cart-preview');
-    
     if (cartPreview && cartPreview.classList.contains('show')) {
-        cartPreview.classList.remove('show'); // Remove the 'show' class to hide the cart preview
+        cartPreview.classList.remove('show');
     }
 }
 
+// Trigger showCartPreview on Add to Cart click without toggling visibility
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
-        // Your existing add-to-cart logic here
-        showCartPreview(); // Show the cart preview after adding an item
+        // Your existing logic for adding items to cart
+        showCartPreview(); // Ensure it only opens without toggling it off
     });
 });

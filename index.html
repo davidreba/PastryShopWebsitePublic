@@ -9,8 +9,9 @@
 
     <title>Pasticceria Dedonatis</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.css">
 </head>
-<body>
+<body data-scroll-container>
     <nav class="navbar">
         <ul>
             <li><a href="#top">Home</a></li>
@@ -87,6 +88,7 @@
         <p>Per richieste, inviaci un'e-mail a: agnesededonatis@gmail.com</p>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
     $(document).ready(function(){
@@ -113,7 +115,7 @@
         } // End if
       });
     });
-    </script>
+    </script>  
     <script>
         const productContainer = document.querySelector('.product-container');
         let isDown = false;
@@ -156,7 +158,14 @@
             const walk = (x - startX) * 3;
             productContainer.scrollLeft = scrollLeft - walk;
         });
-    </script>    
+    </script>
     <script src="scripts.js"></script>
+    <script>
+        const scroll = new LocomotiveScroll({
+            el: document.querySelector('[data-scroll-container]'),
+            smooth: true,
+            // You can add more options here if needed
+        });
+    </script>    
 </body> 
 </html>
