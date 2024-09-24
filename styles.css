@@ -64,14 +64,14 @@ h2 {
     font-size: 60px;
     font-weight: 900;
     line-height: 85%;
-    border-left: 3px solid #ff98a2;
-    padding: 25px;
+    border-left: 3px solid #699eda;
+    padding: 5px;
     margin: 0
 }
 
 h2 span { display: block; }
 
-h3 {font-size: 20px;font-stretch: expanded;color: #ff98a2;line-height: 100%;}
+h3 {font-size: 20px;font-stretch: expanded;color: #699eda;line-height: 100%;}
 
 h2,h3,h4 {text-transform: uppercase;}
 
@@ -125,7 +125,7 @@ section {padding: 50px 0;}
     font-size: 80px;
     font-weight: 900;
     font-stretch: condensed;
-    color: #ff98a2;
+    color: #699eda;
 }
 
 /* Paragraph styles */
@@ -150,10 +150,40 @@ a:hover {
 
 /* Image styles */
 img {
-    margin-top: 20px;
-    width: 300px;
-    height: auto;
-    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Top bar styling */
+
+
+.top-bar {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #272727; /* Dark background similar to reference */
+    padding: 5px 0;
+    font-size: 12px; /* Adjust font size to be smaller */
+    font-style: normal;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc; /* Optional border for separation */
+}
+
+.top-bar .left, .top-bar .right {
+    padding: 0 15px;
+}
+
+.top-bar .top-left {
+    margin-left: 20px;
+}
+
+.top-bar a {
+    text-decoration: none;
+    color: #ffffff; /* White color */
+}
+
+.top-bar .top-right {
+    margin-right: 20px;
 }
 
 /* Navbar Styles */
@@ -290,7 +320,7 @@ body {
 }
 
 .product button {
-    background-color: #ff6b6b;
+    background-color: #699eda;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -300,7 +330,7 @@ body {
 }
 
 .product button:hover {
-    background-color: #ff4b4b;
+    background-color: #699eda;
 }
 
 .product-list {
@@ -316,6 +346,7 @@ body {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     margin: 20px;
+    color: #699eda;
 }
 
 #cart-items {
@@ -385,6 +416,7 @@ body {
 .cart-preview ul li {
     margin-bottom: 10px;
     font-size: 16px;
+    color: #699eda;
 }
 
 .cart-preview h4 {
@@ -405,7 +437,7 @@ body {
 }
 
 .close-cart-preview:hover {
-    color: red;
+    color: #699eda;
 }
 
 .add-to-cart {
