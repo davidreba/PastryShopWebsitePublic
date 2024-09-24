@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Casarano pastry e-commerce">
     <meta name="keywords" content="pasticeria, pastry, croissant, casarano, agnese">
     <meta name="author" content="David Reba">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Pasticceria Dedonatis</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
-<body data-scroll-container>
-    <nav class="navbar">
+<body>
+    <section id="top">
+
+    </section>
+    <nav id="top" class="navbar">
         <ul>
             <li><a href="#top">Home</a></li>
             <li><a href="#products">Prodotti</a></li>
@@ -21,6 +24,83 @@
             <li><a href="cart.html">Shopping Cart</a></li>
         </ul>
     </nav>
+    
+    <section id="vertical">
+        <div class="container">
+            <div class="vertical__content">
+                <div class="col col_left">
+                    <h2 class="vertical__heading"><span>Benvenuti</span><span>nella nostra</span><span>pasticceria!</span></h2>
+                </div>                
+                <div class="col col_right">
+                    <div class="vertical__item">
+                        <h3>1</h3>
+                        <p>Vendiamo i migliori prodotti in circolazione!</p>
+                    </div>
+                    <div class="vertical__item">
+                        <h3>2</h3>
+                        <p>Offriamo un'ampia gamma di articoli di qualità che soddisfano le tue esigenze.</p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </section>
+    
+    <!-- Cart Preview Area -->
+    <div id="cart-preview" class="cart-preview">
+        <button class="close-cart-preview" onclick="closeCartPreview()">X</button>
+        <h3>Cart Preview</h3>
+        <ul id="cart-preview-items"></ul>
+        <p>Total: <span id="cart-preview-total">€0.00</span></p>
+        <a href="cart.html">View Full Cart</a>
+    </div>
+
+    <section id="horizontal" class="product-list"></section>
+        <div class="container">
+            <div class="horizontal__content">
+                    <h2>I nostri prodotti:</h2>
+                    <div class="horizontal__item">
+                        <div class="horizontal__num">1</div>
+                            <a href="product.html">
+                                <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
+                                <h3>TORTA ROMANTICA</h3>
+                                <p>Fresca, bucolica, primaverile.</p>
+                                <p>Price: €20.00</p>
+                            </a>
+                            <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
+                    </div>
+                    <div class="horizontal__item">
+                        <div class="horizontal__num">2</div>
+                            <a href="product.html">
+                                <img src="images/prodotto2.PNG" alt="FOCACCIA">
+                                <h3>FOCACCIA</h3>
+                                <p>Solo lievito madre, 28 ore di lenta lievitazione.</p>
+                                <p>Prezzo: €7.50</p>
+                            </a>
+                            <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
+                    </div>
+                    <div class="horizontal__item">
+                        <div class="horizontal__num">3</div>
+                            <a href="product.html">
+                                <img src="images/prodotto3.PNG" alt="PANZANELLA">
+                                <h3>PANZANELLA</h3>
+                                <p>La panzanella è un piatto freddo, non serve cottura.</p>
+                                <p>Prezzo: €15.00</p>
+                            </a>
+                            <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
+                    </div>
+                    <div class="horizontal__item">
+                        <div class="horizontal__num">4</div>
+                            <a href="product.html">
+                                <img src="images/prodotto4.PNG" alt="CROISSANT">
+                                <h3>CROISSANT</h3>
+                                <p>Croissant fatto a mano.</p>
+                                <p>Prezzo: €2.00</p>
+                            </a>
+                            <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
+                    </div>
+            </div>
+        </div>
+    </section>
 
     <h1>Benvenuti nella nostra pasticceria!</h1>
     <p>Vendiamo i migliori prodotti in circolazione!</p>
@@ -87,8 +167,7 @@
         <h2>Contatti</h2>
         <p>Per richieste, inviaci un'e-mail a: agnesededonatis@gmail.com</p>
     </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
     $(document).ready(function(){
@@ -115,57 +194,11 @@
         } // End if
       });
     });
-    </script>  
-    <script>
-        const productContainer = document.querySelector('.product-container');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-    
-        productContainer.addEventListener('mousedown', (e) => {
-            isDown = true;
-            productContainer.classList.add('active');
-            startX = e.pageX - productContainer.offsetLeft;
-            scrollLeft = productContainer.scrollLeft;
-        });
-    
-        productContainer.addEventListener('mouseleave', () => {
-            isDown = false;
-            productContainer.classList.remove('active');
-        });
-    
-        productContainer.addEventListener('mouseup', () => {
-            isDown = false;
-            productContainer.classList.remove('active');
-        });
-    
-        productContainer.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - productContainer.offsetLeft;
-            const walk = (x - startX) * 3; // The * 3 value controls the scroll speed
-            productContainer.scrollLeft = scrollLeft - walk;
-        });
-    
-        // Touch support for mobile devices
-        productContainer.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].pageX - productContainer.offsetLeft;
-            scrollLeft = productContainer.scrollLeft;
-        });
-    
-        productContainer.addEventListener('touchmove', (e) => {
-            const x = e.touches[0].pageX - productContainer.offsetLeft;
-            const walk = (x - startX) * 3;
-            productContainer.scrollLeft = scrollLeft - walk;
-        });
     </script>
-    <script src="scripts.js"></script>
-    <script>
-        const scroll = new LocomotiveScroll({
-            el: document.querySelector('[data-scroll-container]'),
-            smooth: true,
-            // You can add more options here if needed
-        });
-    </script>    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://assets.codepen.io/16327/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@latest/bundled/lenis.js"></script>
+    <script src="./scripts.js"></script>
 </body> 
 </html>
