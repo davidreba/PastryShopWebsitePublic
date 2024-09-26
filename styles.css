@@ -27,12 +27,16 @@
 
 /* General page styles */
 body {
-    font-family: Arial, sans-serif;
+    padding-top: 0px; /* Adjust this based on the height of your navbar */
+    font-family: Slussen, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     text-align: center;
-    overflow: visible;
+    font-size: 16px;
+    font-weight: 400;
+    background: #000;
+    color: #fff;
 }
 
 [data-scroll-section] {
@@ -41,23 +45,18 @@ body {
     align-items: center;
     justify-content: center;
 }
-    
-html {
-    scroll-behavior: initial;
-    overflow: hidden;
-}
 
 html, body {
     width: 100%;
     min-height: 100%;
+    overflow: scroll;
+	margin: 0;
+    padding: 0;
 }
 
-body {
-    font-family: Slussen;
-    font-size: 16px;
-    font-weight: 400;
-    background: #000;
-    color: #fff;
+html {
+    scroll-behavior: initial;
+    overflow: hidden;
 }
 
 h2 {
@@ -80,7 +79,7 @@ h2,h3,h4 {text-transform: uppercase;}
     margin: auto;
 }
 
-section {padding: 50px 0;}
+section {padding: 0px 0;}
 
 .col {
     width: 50%;
@@ -150,23 +149,20 @@ a:hover {
 
 /* Image styles */
 img {
-    width: 30px;
-    height: 30px;
+    width: 300px;
+    height: 300px;
 }
 
 /* Top bar styling */
-
-
 .top-bar {
+    height: 40px;
     font-family: 'Montserrat', sans-serif;
     background-color: #272727; /* Dark background similar to reference */
-    padding: 5px 0;
     font-size: 12px; /* Adjust font size to be smaller */
-    font-style: normal;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ccc; /* Optional border for separation */
+    /* border-bottom: 0px solid #ccc; /* Optional border for separation */
 }
 
 .top-bar .left, .top-bar .right {
@@ -175,15 +171,22 @@ img {
 
 .top-bar .top-left {
     margin-left: 20px;
+    margin-bottom: 18px;
+}
+
+.top-bar .top-right {
+    margin-right: 20px;
+    margin-bottom: 18px;
+}
+
+.top-bar img {
+    width: 30px;
+    height: 30px;
 }
 
 .top-bar a {
     text-decoration: none;
     color: #ffffff; /* White color */
-}
-
-.top-bar .top-right {
-    margin-right: 20px;
 }
 
 /* Navbar Styles */
@@ -192,12 +195,12 @@ img {
 .navbar {
     position: sticky;
     top: 0;
-    left: 0;
     width: 100%;
     background-color: #ffffff; /* White background similar to the reference */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     z-index: 1000; /* Ensures it stays on top */
-    padding: 20px 0;   
+    padding-bottom: 10px; 
+    padding-bottom: 10px; 
 }
 
 .navbar ul {
@@ -228,14 +231,6 @@ img {
     color: #000; /* Darken the text on hover */
 }
 
-nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #fff; /* Add background to navbar */
-    z-index: 1000;
-}
-
 @media (max-width: 768px) {
     .navbar ul {
         flex-direction: column; /* Stack the navigation links on smaller screens */
@@ -246,11 +241,6 @@ nav {
         padding: 10px;
         font-size: 14px;
     }
-}
-
-/* Add some padding to the body to ensure content isn't hidden behind navbar */
-body {
-    padding-top: 60px; /* Adjust this based on the height of your navbar */
 }
 
 /* Product Section */
@@ -387,7 +377,7 @@ body {
 /* Cart preview container */
 .cart-preview {
     position: fixed;
-    top: 110px; /* Adjust depending on your navbar height */
+    top: 120px; /* Adjust depending on your navbar height */
     right: 10px; /* Initially off-screen */
     width: 300px;
     height: auto;
@@ -455,4 +445,25 @@ body {
 .add-to-cart:hover {
     background-color: #45a049; /* Darker green on hover */
     transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+/* For WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+/* Track of the scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Light grey background */
+}
+
+/* Handle of the scrollbar */
+::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2; /* Grey handle */
+    border-radius: 10px; /* Rounded handle for a modern look */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* Darker grey on hover */
 }
