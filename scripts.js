@@ -189,3 +189,11 @@ gsap.to(box_items, {
     end: "+=" + section_2.offsetWidth
   }
 });
+
+/*document.querySelector('.scroll-up').addEventListener('click', function() {
+    document.querySelector('.scroll-content').scrollBy(0, -50); // Adjust scroll amount
+});
+
+document.querySelector('.scroll-down').addEventListener('click', function() {
+    document.querySelector('.scroll-content').scrollBy(0, 50); // Adjust scroll amount
+});*/

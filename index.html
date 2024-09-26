@@ -28,51 +28,116 @@
         </div>
     </section>
 
-    <nav id="top" class="navbar">
-        <ul>
-            <li><a href="#top">Home</a></li>
-            <li><a href="#products">Prodotti</a></li>
-            <li><a href="#aboutus">About Us</a></li>
-            <li><a href="#contact">Contatti</a></li>
-            <li><a href="cart.html">Shopping Cart</a></li>
-        </ul>
-    </nav>
-    
-    <section id="vertical">
-        <div class="container">
-            <div class="vertical__content">
-                <div class="col col_left">
-                    <h2 class="vertical__heading"><span>Benvenuti</span><span>nella nostra</span><span>pasticceria!</span></h2>
-                </div>                
-                <div class="col col_right">
-                    <div class="vertical__item">
-                        <h3>1</h3>
-                        <p>Vendiamo i migliori prodotti in circolazione!</p>
-                    </div>
-                    <div class="vertical__item">
-                        <h3>2</h3>
-                        <p>Offriamo un'ampia gamma di articoli di qualità che soddisfano le tue esigenze.</p>
-                    </div>
-                </div>
-            </div>
-        </div>        
-    </section>
-    
-    <!-- Cart Preview Area -->
-    <div id="cart-preview" class="cart-preview">
-        <button class="close-cart-preview" onclick="closeCartPreview()">X</button>
-        <h3>Cart Preview</h3>
-        <ul id="cart-preview-items"></ul>
-        <p>Total: <span id="cart-preview-total">€0.00</span></p>
-        <a href="cart.html">View Full Cart</a>
-    </div>
+    <!--<div class="scroll-wrapper">
+        <div class="scroll-arrow scroll-up"></div>
+            <div class="scroll-content"> -->
+                <nav id="top" class="navbar">
+                    <ul>
+                        <li><a href="#top">Home</a></li>
+                        <li><a href="#products">Prodotti</a></li>
+                        <li><a href="#aboutus">About Us</a></li>
+                        <li><a href="#contact">Contatti</a></li>
+                        <li><a href="cart.html">Shopping Cart</a></li>
+                    </ul>
+                </nav>
+                
+                <section id="vertical">
+                    <div class="container">
+                        <div class="vertical__content">
+                            <div class="col col_left">
+                                <h2 class="vertical__heading"><span>Benvenuti</span><span>nella nostra</span><span>pasticceria!</span></h2>
+                            </div>                
+                            <div class="col col_right">
+                                <div class="vertical__item">
+                                    <h3>1</h3>
+                                    <p>Vendiamo i migliori prodotti in circolazione!</p>
+                                </div>
+                                <div class="vertical__item">
+                                    <h3>2</h3>
+                                    <p>Offriamo un'ampia gamma di articoli di qualità che soddisfano le tue esigenze.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+                </section>
 
-    <section id="horizontal" class="product-list"></section>
-        <div class="container">
-            <div class="horizontal__content">
-                    <h2>I nostri prodotti:</h2>
-                    <div class="horizontal__item">
-                        <div class="horizontal__num">1</div>
+                <!-- Cart Preview Area -->
+                <div id="cart-preview" class="cart-preview">
+                    <button class="close-cart-preview" onclick="closeCartPreview()">X</button>
+                    <h3>Cart Preview</h3>
+                    <ul id="cart-preview-items"></ul>
+                    <p>Total: <span id="cart-preview-total">€0.00</span></p>
+                    <a href="cart.html">View Full Cart</a>
+                </div>
+
+                <section id="horizontal" class="product-list"></section>
+                    <div class="container">
+                        <div class="horizontal__content">
+                                <h2>I nostri prodotti:</h2>
+                                <div class="horizontal__item">
+                                    <div class="horizontal__num">1</div>
+                                        <a href="product.html">
+                                            <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
+                                            <h3>TORTA ROMANTICA</h3>
+                                            <p>Fresca, bucolica, primaverile.</p>
+                                            <p>Price: €20.00</p>
+                                        </a>
+                                        <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
+                                </div>
+                                <div class="horizontal__item">
+                                    <div class="horizontal__num">2</div>
+                                        <a href="product.html">
+                                            <img src="images/prodotto2.PNG" alt="FOCACCIA">
+                                            <h3>FOCACCIA</h3>
+                                            <p>Solo lievito madre, 28 ore di lenta lievitazione.</p>
+                                            <p>Prezzo: €7.50</p>
+                                        </a>
+                                        <button class="add-to-cart" data-product-id="2" data-price="7.50">Add to Cart</button>
+                                </div>
+                                <div class="horizontal__item">
+                                    <div class="horizontal__num">3</div>
+                                        <a href="product.html">
+                                            <img src="images/prodotto3.PNG" alt="PANZANELLA">
+                                            <h3>PANZANELLA</h3>
+                                            <p>La panzanella è un piatto freddo, non serve cottura.</p>
+                                            <p>Prezzo: €15.00</p>
+                                        </a>
+                                        <button class="add-to-cart" data-product-id="3" data-price="15.00">Add to Cart</button>
+                                </div>
+                                <div class="horizontal__item">
+                                    <div class="horizontal__num">4</div>
+                                        <a href="product.html">
+                                            <img src="images/prodotto4.PNG" alt="CROISSANT">
+                                            <h3>CROISSANT</h3>
+                                            <p>Croissant fatto a mano.</p>
+                                            <p>Prezzo: €2.00</p>
+                                        </a>
+                                        <button class="add-to-cart" data-product-id="4" data-price="2.00">Add to Cart</button>
+                                </div>
+                        </div>
+                    </div>
+                </section>
+
+                <h1>Benvenuti nella nostra pasticceria!</h1>
+                <p>Vendiamo i migliori prodotti in circolazione!</p>
+                <p>Offriamo un'ampia gamma di articoli di qualità che soddisfano le tue esigenze.</p>
+
+                <!-- <li><a href="#contact">Contatti</a></li> -->
+
+                <img src="images/firstImg.PNG" alt="First Image" style="width:100%; height:auto; border-radius:10px;">
+
+                <section id="products" class="product-list">
+                    <h2>I nostri prodotti :</h2>
+                    <!-- Cart Preview Area -->
+                    <div id="cart-preview" class="cart-preview">
+                        <button class="close-cart-preview" onclick="closeCartPreview()">X</button>
+                        <h3>Cart Preview</h3>
+                        <ul id="cart-preview-items"></ul>
+                        <p>Total: <span id="cart-preview-total">€0.00</span></p>
+                        <a href="cart.html">View Full Cart</a>
+                    </div>
+                    <div class="product-container">
+                        <div class="product-item">
                             <a href="product.html">
                                 <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
                                 <h3>TORTA ROMANTICA</h3>
@@ -80,9 +145,9 @@
                                 <p>Price: €20.00</p>
                             </a>
                             <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
-                    </div>
-                    <div class="horizontal__item">
-                        <div class="horizontal__num">2</div>
+                        </div>
+                        
+                        <div class="product-item">
                             <a href="product.html">
                                 <img src="images/prodotto2.PNG" alt="FOCACCIA">
                                 <h3>FOCACCIA</h3>
@@ -90,9 +155,9 @@
                                 <p>Prezzo: €7.50</p>
                             </a>
                             <button class="add-to-cart" data-product-id="2" data-price="7.50">Add to Cart</button>
-                    </div>
-                    <div class="horizontal__item">
-                        <div class="horizontal__num">3</div>
+                        </div>
+                        
+                        <div class="product-item">
                             <a href="product.html">
                                 <img src="images/prodotto3.PNG" alt="PANZANELLA">
                                 <h3>PANZANELLA</h3>
@@ -100,9 +165,9 @@
                                 <p>Prezzo: €15.00</p>
                             </a>
                             <button class="add-to-cart" data-product-id="3" data-price="15.00">Add to Cart</button>
-                    </div>
-                    <div class="horizontal__item">
-                        <div class="horizontal__num">4</div>
+                        </div>
+
+                        <div class="product-item">
                             <a href="product.html">
                                 <img src="images/prodotto4.PNG" alt="CROISSANT">
                                 <h3>CROISSANT</h3>
@@ -110,76 +175,17 @@
                                 <p>Prezzo: €2.00</p>
                             </a>
                             <button class="add-to-cart" data-product-id="4" data-price="2.00">Add to Cart</button>
+                        </div>
                     </div>
-            </div>
-        </div>
-    </section>
+                </section>
 
-    <h1>Benvenuti nella nostra pasticceria!</h1>
-    <p>Vendiamo i migliori prodotti in circolazione!</p>
-    <p>Offriamo un'ampia gamma di articoli di qualità che soddisfano le tue esigenze.</p>
-
-    <!-- <li><a href="#contact">Contatti</a></li> -->
-
-    <img src="images/firstImg.PNG" alt="First Image" style="width:100%; height:auto; border-radius:10px;">
-
-    <section id="products" class="product-list">
-        <h2>I nostri prodotti :</h2>
-        <!-- Cart Preview Area -->
-        <div id="cart-preview" class="cart-preview">
-            <button class="close-cart-preview" onclick="closeCartPreview()">X</button>
-            <h3>Cart Preview</h3>
-            <ul id="cart-preview-items"></ul>
-            <p>Total: <span id="cart-preview-total">€0.00</span></p>
-            <a href="cart.html">View Full Cart</a>
-        </div>
-        <div class="product-container">
-            <div class="product-item">
-                <a href="product.html">
-                    <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
-                    <h3>TORTA ROMANTICA</h3>
-                    <p>Fresca, bucolica, primaverile.</p>
-                    <p>Price: €20.00</p>
-                </a>
-                <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
-            </div>
-            
-            <div class="product-item">
-                <a href="product.html">
-                    <img src="images/prodotto2.PNG" alt="FOCACCIA">
-                    <h3>FOCACCIA</h3>
-                    <p>Solo lievito madre, 28 ore di lenta lievitazione.</p>
-                    <p>Prezzo: €7.50</p>
-                </a>
-                <button class="add-to-cart" data-product-id="2" data-price="7.50">Add to Cart</button>
-            </div>
-            
-            <div class="product-item">
-                <a href="product.html">
-                    <img src="images/prodotto3.PNG" alt="PANZANELLA">
-                    <h3>PANZANELLA</h3>
-                    <p>La panzanella è un piatto freddo, non serve cottura.</p>
-                    <p>Prezzo: €15.00</p>
-                </a>
-                <button class="add-to-cart" data-product-id="3" data-price="15.00">Add to Cart</button>
-            </div>
-
-            <div class="product-item">
-                <a href="product.html">
-                    <img src="images/prodotto4.PNG" alt="CROISSANT">
-                    <h3>CROISSANT</h3>
-                    <p>Croissant fatto a mano.</p>
-                    <p>Prezzo: €2.00</p>
-                </a>
-                <button class="add-to-cart" data-product-id="4" data-price="2.00">Add to Cart</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Contatti</h2>
-        <p>Per richieste, inviaci un'e-mail a: agnesededonatis@gmail.com</p>
-    </section>
+                <section id="contact">
+                    <h2>Contatti</h2>
+                    <p>Per richieste, inviaci un'e-mail a: agnesededonatis@gmail.com</p>
+                </section>
+            <!-- </div>
+        <div class="scroll-arrow scroll-down"></div>
+    </div> -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
