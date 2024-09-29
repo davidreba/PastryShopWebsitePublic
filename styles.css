@@ -27,7 +27,6 @@
 
 /* General page styles */
 body {
-    padding-top: 0px; /* Adjust this based on the height of your navbar */
     font-family: Slussen, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
@@ -154,7 +153,8 @@ img {
 /* Top bar styling */
 .top-bar {
     height: 40px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Arial Nova Light', sans-serif;
+	font-weight: 700;
     background-color: #272727; /* Dark background similar to reference */
     font-size: 12px; /* Adjust font size to be smaller */
     display: flex;
@@ -167,13 +167,17 @@ img {
     padding: 0 15px;
 }
 
+.top-bar span {
+	margin-right: 20px;
+}
+
 .top-bar .top-left {
-    margin-left: 20px;
-    margin-bottom: 18px;
+    margin-left: 85px;
+    margin-bottom: 20px;
 }
 
 .top-bar .top-right {
-    margin-right: 20px;
+    margin-right: 85px;
     margin-bottom: 18px;
 }
 
@@ -185,6 +189,14 @@ img {
 .top-bar a {
     text-decoration: none;
     color: #ffffff; /* White color */
+	
+}.top-bar .email-link {
+    color: inherit; /* Keeps the default text color */
+    transition: color 0.3s ease; /* Smooth transition effect */
+}
+
+.top-bar .email-link:hover {
+    color: #3498db; /* Blue color on hover (adjust this value to your preferred shade of blue) */
 }
 
 /* Navbar Styles */
@@ -193,15 +205,15 @@ img {
 .navbar {
     position: sticky;
     top: 0;
+    left: 0;
     width: 100%;
     background-color: #ffffff; /* White background similar to the reference */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     z-index: 1000; /* Ensures it stays on top */
-    padding-bottom: 10px; 
-    padding-bottom: 10px; 
+    padding: 20px 0;
 }
 
-.navbar ul {
+.navbar ul .navbar-center {
     list-style-type: none; /* Remove bullet points */
     margin: 0;
     padding: 0;
@@ -227,6 +239,15 @@ img {
 .navbar ul li a:hover {
     background-color: #f5f5f5; /* Light grey hover background */
     color: #000; /* Darken the text on hover */
+}
+
+.navbar img {
+    width: 30px;
+    height: 30px;
+}
+
+.navbar ul .navbar-right {
+	margin-right: 20px;
 }
 
 @media (max-width: 768px) {
