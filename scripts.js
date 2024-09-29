@@ -1,9 +1,26 @@
 // Initialize an empty cart
 let cart = [];
+let itemQuantity;
 
 window.onload = function() {
     loadCart();
+    updateCartPreview();
     updateCartUI();
+    updateCounts();
+}
+
+// Example product count for Favorites and Cart
+let favoritesCount = 0;
+
+// Function to update the counts (call this function when adding products to favorites/cart)
+function updateCounts() {
+    document.getElementById('fav-count').innerText = favoritesCount;
+}
+
+// Example of how to increment the count (this would be tied to your add-to-cart and add-to-favorites logic)
+function addToFavorites() {
+    favoritesCount++;
+    updateCounts();
 }
 
 function updateCartPreview() {
@@ -28,6 +45,9 @@ function updateCartPreview() {
 
     // Show the cart preview
     document.getElementById('cart-preview').style.display = 'block';
+
+    // Show items quantity
+    document.getElementById('cart-count').innerText = itemQuantity;
 }
 
 // Update the preview when a product is added
@@ -39,6 +59,7 @@ function addToCart(productId, price) {
     } else {
         cart.push({ productId: productId, price: price, quantity: 1 });
     }
+    itemQuantity++;
     saveCart();
     updateCartUI();
     updateCartPreview(); // Update the preview
@@ -76,19 +97,25 @@ function updateCartUI() {
 // Function to save cart to local storage
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('iQuantity', JSON.stringify(itemQuantity));
 }
 
 // Function to load cart from local storage
 function loadCart() {
     const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
+    const savedQuantity = localStorage.getItem('iQuantity');
+    if (savedCart && savedQuantity) {
         cart = JSON.parse(savedCart);
+        itemQuantity = JSON.parse(savedQuantity);
     } else {
         cart = [];
+        itemQuantity = 0;
     }
 }
 
 function removeFromCart(index) {
+    let numberOfDlt = cart[index].quantity;
+    itemQuantity -= numberOfDlt;
     cart.splice(index, 1); // Remove the item at the given index
     saveCart();            // Save the updated cart to localStorage
     updateCartUI();         // Update the cart UI
@@ -96,6 +123,7 @@ function removeFromCart(index) {
 
 function emptyCart() {
     cart = []; // Clear the cart array
+    itemQuantity = 0;
     saveCart(); // Save the empty cart to localStorage
     updateCartUI(); // Update the cart UI to reflect the empty cart
 }
@@ -188,6 +216,21 @@ gsap.to(box_items, {
     snap: 1 / (box_items.length - 1),
     end: "+=" + section_2.offsetWidth
   }
+});
+
+function reloadPage() {
+    location.reload();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const navLinks = document.querySelectorAll(".navbar a"); // Assuming links are inside the navbar
+    const currentPage = window.location.pathname.split("/").pop(); // Get current page name
+
+    navLinks.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+        }
+    });
 });
 
 /*document.querySelector('.scroll-up').addEventListener('click', function() {
