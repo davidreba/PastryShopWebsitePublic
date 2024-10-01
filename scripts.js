@@ -45,9 +45,6 @@ function updateCartPreview() {
 
     // Show the cart preview
     document.getElementById('cart-preview').style.display = 'block';
-
-    // Show items quantity
-    document.getElementById('cart-count').innerText = itemQuantity;
 }
 
 // Update the preview when a product is added
@@ -98,6 +95,7 @@ function updateCartUI() {
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('iQuantity', JSON.stringify(itemQuantity));
+    loadCart();
 }
 
 // Function to load cart from local storage
@@ -111,6 +109,9 @@ function loadCart() {
         cart = [];
         itemQuantity = 0;
     }
+
+    // Show items quantity
+    document.getElementById('cart-count').innerText = itemQuantity;
 }
 
 function removeFromCart(index) {
@@ -144,29 +145,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function toggleCartPreview() {
-    let cartPreview = document.querySelector('.cart-preview');
-    
-    if (cartPreview) {
-        cartPreview.classList.toggle('show'); // Toggle the class 'show' to apply animation
-    }
-}
+const cartPreviewTrigger = document.getElementById('shopping-cart-preview-trigger');
+const cartPreview = document.getElementById('cart-preview');
+const closeCartPreview = document.querySelector('.close-cart-preview');
 
-// Show the cart preview only if it's not already visible
-function showCartPreview() {
-    let cartPreview = document.querySelector('.cart-preview');
-    if (cartPreview && !cartPreview.classList.contains('show')) {
-        cartPreview.classList.add('show');
-    }
-}
+// Open cart preview when icon is clicked
+cartPreviewTrigger.addEventListener('click', function() {
+    cartPreview.classList.add('show');
+    document.body.classList.add('cart-open'); // Prevent scrolling and add dark background
+    // Add this line if not already present
+    document.querySelector('.navbar').classList.add('dark'); // Darken navbar if needed
+});
 
-// Close the cart preview when the X button is clicked
-function closeCartPreview() {
-    let cartPreview = document.querySelector('.cart-preview');
-    if (cartPreview && cartPreview.classList.contains('show')) {
-        cartPreview.classList.remove('show');
+// Close cart preview when 'X' is clicked
+closeCartPreview.addEventListener('click', function() {
+    cartPreview.classList.remove('show');
+    document.body.classList.remove('cart-open'); // Restore scrolling and remove dark background
+    // Add this line if not already present
+    document.querySelector('.navbar').classList.remove('dark'); // Restore navbar color if needed
+});
+
+// Get the elements
+const searchButton = document.getElementById('search-button');
+const searchPopup = document.getElementById('search-popup');
+const closeButton = document.querySelector('.close-button');
+
+// Show the pop-up when search button is clicked
+searchButton.addEventListener('click', function() {
+    searchPopup.style.display = 'flex';
+});
+
+// Close the pop-up when 'X' is clicked
+closeButton.addEventListener('click', function() {
+    searchPopup.style.display = 'none';
+});
+
+// Close the pop-up when clicking outside of the content
+window.addEventListener('click', function(event) {
+    if (event.target === searchPopup) {
+        searchPopup.style.display = 'none';
     }
-}
+});
 
 // Trigger showCartPreview on Add to Cart click without toggling visibility
 document.querySelectorAll('.add-to-cart').forEach(button => {
@@ -188,20 +207,6 @@ function raf(time) {
 }
 
 requestAnimationFrame(raf);
-
-const section_1 = document.getElementById("vertical");
-const col_left = document.querySelector(".col_left");
-const timeln = gsap.timeline({ paused: true });
-
-timeln.fromTo(col_left, {y: 0}, {y: '170vh', duration: 1, ease: 'none'}, 0);
-
-const scroll_1 = ScrollTrigger.create({
-    animation: timeln,
-    trigger: section_1,
-    start: 'top top',
-    end: 'bottom center',
-    scrub: true
-});
 
 const section_2 = document.getElementById("horizontal");
 let box_items = gsap.utils.toArray(".horizontal__item");
@@ -232,6 +237,28 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.getElementById('italian-icon').addEventListener('click', function() {
+    var dropdown = document.getElementById('language-dropdown');
+    if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+    } else {
+        dropdown.style.display = 'block';
+    }
+});
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.language-icon')) {
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+                openDropdown.style.display = 'none';
+            }
+        }
+    }
+};
 
 /*document.querySelector('.scroll-up').addEventListener('click', function() {
     document.querySelector('.scroll-content').scrollBy(0, -50); // Adjust scroll amount

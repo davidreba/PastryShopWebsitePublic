@@ -9,11 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Pasticceria Dedonatis</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
     <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 
 </head>
 <body>
+    <div id="loader"></div>
+
     <section id="top">
         <div class="top-bar">
             <div class="top-left">
@@ -23,7 +26,7 @@
             <div class="top-right">
                 <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="social-icon"></a>
                 <a href="https://www.instagram.com/agnesededonatis/" target="_blank"><img src="images/instagram-icon.png" alt="Instagram" class="social-icon"></a>
-                <a href="#"><img src="images/italian-flag.png" alt="italianL" class="language-icon"></a>
+                <a href="#"><img src="images/italian-flag.png" alt="Italian" class="language-icon" id="italian-icon"></a>
             </div>
         </div>
     </section>
@@ -31,69 +34,89 @@
     <!--<div class="scroll-wrapper">
         <div class="scroll-arrow scroll-up"></div>
             <div class="scroll-content"> -->
-                <nav id="top" class="navbar">
-                    <div class="navbar-left">
-                        <a href="javascript:void(0);" onclick="reloadPage();"><img src="images/logo.png" alt="Logo" class="navbar-logo"></a>
-                    </div>
-                    <div class="navbar-center">
-                        <ul>
-                            <li><a href="#top" class="home">Home</a></li>
-                            <li><a href="#products">Prodotti</a></li>
-                            <li><a href="#aboutus">About Us</a></li>
-                            <li><a href="#contact">Contatti</a></li>
-                        </ul>
-                    </div>
-                    <div class="navbar-right">
-                        <ul>
-                            <li><a href="#serch"><img src="images/search-icon.png" alt="Search" class="search"></a></li>
-                            <li><a href="#favourites"><img src="images/favourites-icon.png" alt="Favourites" class="favourites"><span id="fav-count" class="product-count">0</span></a></li>
-                            <li><a href="cart.html"><img src="images/shopping-cart-icon.png" alt="ShoppingCart" class="shopping-cart"><span id="cart-count" class="product-count">0</span></a></li>
-                            <li><a href="#profile"><img src="images/profile-icon.png" alt="Profile" class="profile"></a></li>
-                        </ul>
-                    </div>
-                </nav>
+    <nav id="nav" class="navbar">
+        <div class="navbar-left">
+            <a href="javascript:void(0);" onclick="reloadPage();"><img src="images/logo.png" alt="Logo" class="navbar-logo"></a>
+        </div>
+        <div class="navbar-center">
+            <ul>
+                <li><a href="#top" class="home">Home</a></li>
+                <li><a href="#horizontal">Prodotti</a></li>
+                <li><a href="#aboutUs">About Us</a></li>
+                <li><a href="contact.html">Contatti</a></li>
+            </ul>
+        </div>
+        <div class="navbar-right">
+            <ul>
+                <li><a><img id="search-button" src="images/search-icon.png" alt="Search" class="search-icon"></a></li>
+                <li><a href="#favourites"><img src="images/favourites-icon.png" alt="Favourites" class="favorites"><span id="fav-count" class="product-count">0</span></a></li>
+                <li><a href="javascript:void(0)" id="shopping-cart-preview-trigger">
+                        <img id="shopping-cart-preview" src="images/shopping-cart-icon.png" alt="ShoppingCart" class="shopping-cart">
+                        <span id="cart-count" class="product-count">0</span></a></li>
+                <li><a href="#profile"><img src="images/profile-icon.png" alt="Profile" class="profile"></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!--
+    <div class="image-container"> 
+        <img src="images/secondImg.PNG" alt="Second Image" style="width:50%; height:auto; border-radius:10px;">
+        <img src="images/firstImg.PNG" alt="First Image" style="width:50%; height:auto; border-radius:10px;">
+    </div>-->
 
-                <div class="image-container"> 
-                    <img src="images/secondImg.PNG" alt="Second Image" style="width:50%; height:auto; border-radius:10px;">
-                    <img src="images/firstImg.PNG" alt="First Image" style="width:50%; height:auto; border-radius:10px;">
-                </div>
-                
+    <!-- Search pop-up -->
+    <div id="search-popup" class="search-popup">
+        <div class="popup-content">
+          <span class="close-button">&times;</span>
+          <p class="search-message">Start typing and press enter to search</p>
+          <div class="search-container">
+            <input type="text" id="search-input" class="search-bar" placeholder="Search..." />
+          </div>
+        </div>
+    </div>
+
+    <!-- Shopping cart preview -->
+    <div id="cart-preview" class="cart-preview">
+        <button class="close-cart-preview">&times;</button>
+        <h4>Shopping Cart</h4>
+        <ul id="cart-preview-items"></ul>
+        <p>Total: <span id="cart-preview-total">€0.00</span></p>
+        <a href="cart.html"><button id="view-basket" class="basket-button">View Basket</button></a>
+        <button id="checkout" class="checkout-button">Checkout</button>
+    </div>
+
+    <!-- Background overlay -->
+    <div id="overlay" class="hidden"></div>
+
                 <section id="vertical">
                     <div class="container">
                         <div class="vertical__content">
                             <div class="col col_left">
-                                <h2 class="vertical__heading"><span>Benvenuti</span><span>nella nostra</span><span>pasticceria!</span></h2>
-                            </div>                
-                            <div class="col col_right">
+                                <h2 class="vertical__heading"><span>Benvenuti<br>nella nostra<br>pasticceria!</span></h2>
                                 <div class="vertical__item">
-                                    <h3>1</h3>
                                     <p>Vendiamo i migliori prodotti in circolazione!</p>
                                 </div>
                                 <div class="vertical__item">
-                                    <h3>2</h3>
                                     <p>Offriamo un'ampia gamma di articoli di qualità che soddisfano le tue esigenze.</p>
                                 </div>
-                                <div class="vertical__item"></div>
-                                    <img src="images/firstImg.PNG" alt="First Image" style="height:200px; width: 400px ;border-radius:10px;">
+                                <div class="vertical__item">
+                                    <img src="images/fourthImg.PNG" alt="Fourth Image" style="height: 160px; width: 160px; border-radius: 30px"></img> 
+                                    <img src="images/fifthImg.PNG" alt="Fifth Image" style="height: 160px; width: 160px; border-radius: 30px"></img> 
+                                    <img src="images/sixthImg.PNG" alt="Sixth Image" style="height: 160px; width: 160px; border-radius: 30px"></img> 
+                                </div>
+                            </div>                
+                            <div class="col col_right">
+                                <div class="vertical__item">
+                                    <img src="images/thirdImg.PNG" alt="Third Image" style="height:442px; width: 400px ;border-radius:30px; padding: 10px;">
                                 </div>
                             </div>
                         </div>
                     </div>        
                 </section>
-
-                <!-- Cart Preview Area -->
-                <div id="cart-preview" class="cart-preview">
-                    <button class="close-cart-preview" onclick="closeCartPreview()">X</button>
-                    <h3>Cart Preview</h3>
-                    <ul id="cart-preview-items"></ul>
-                    <p>Total: <span id="cart-preview-total">€0.00</span></p>
-                    <a href="cart.html">View Full Cart</a>
-                </div>
-
-                <section id="horizontal" class="product-list"></section>
+                <!-- 
+                <section id="horizontal" class="product-list">
                     <div class="container">
                         <div class="horizontal__content">
-                                <h2>I nostri prodotti:</h2>
+                            <h2>Migliori venditori:</h2>
                                 <div class="horizontal__item">
                                     <div class="horizontal__num">1</div>
                                         <a href="product.html">
@@ -137,25 +160,15 @@
                         </div>
                     </div>
                 </section>
-
+                
                 <h1>Benvenuti nella nostra pasticceria!</h1>
                 <p>Vendiamo i migliori prodotti in circolazione!</p>
                 <p>Offriamo un'ampia gamma di articoli di qualità che soddisfano le tue esigenze.</p>
 
-                <!-- <li><a href="#contact">Contatti</a></li> -->
-
                 <img src="images/firstImg.PNG" alt="First Image" style="width:100%; height:auto; border-radius:10px;">
-
+            -->
                 <section id="products" class="product-list">
-                    <h2>I nostri prodotti :</h2>
-                    <!-- Cart Preview Area -->
-                    <div id="cart-preview" class="cart-preview">
-                        <button class="close-cart-preview" onclick="closeCartPreview()">X</button>
-                        <h3>Cart Preview</h3>
-                        <ul id="cart-preview-items"></ul>
-                        <p>Total: <span id="cart-preview-total">€0.00</span></p>
-                        <a href="cart.html">View Full Cart</a>
-                    </div>
+                    <h2><br>&nbsp;&nbsp;&nbsp;Migliori venditori&nbsp;&nbsp;&nbsp;<br><br></h2>
                     <div class="product-container">
                         <div class="product-item">
                             <a href="product.html">
@@ -198,46 +211,33 @@
                         </div>
                     </div>
                 </section>
-
-                <section id="contact">
-                    <h2>Contatti</h2>
-                    <p>Per richieste, inviaci un'e-mail a: agnesededonatis@gmail.com</p>
-                </section>
-            <!-- </div>
+          <!--  </div>
         <div class="scroll-arrow scroll-down"></div>
     </div> -->
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="social-icon"></a>
+                <a href="https://www.instagram.com/agnesededonatis/" target="_blank"><img src="images/instagram-icon.png" alt="Instagram" class="social-icon"></a>
+            </div>
+            <div class="footer-right">
+                <a>Website made by</a>
+                <span><a href="mailto:reba@hotmail.com" class="email-link">reba@hotmail.com</a></span>
+            </div>
+        </div>
+    </footer>
+
     <script>
-    $(document).ready(function(){
-      // Add smooth scrolling to all links
-      $("a").on('click', function(event) {
-    
-        // Make sure this.hash has a value before overriding default behavior
-        if (this.hash !== "") {
-          // Prevent default anchor click behavior
-          event.preventDefault();
-    
-          // Store hash
-          var hash = this.hash;
-    
-          // Using jQuery's animate() method to add smooth page scroll
-          // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-          $('html, body').animate({
-            scrollTop: $(hash).offset().top
-          }, 800, function(){
-    
-            // Add hash (#) to URL when done scrolling (default click behavior)
-            window.location.hash = hash;
-          });
-        } // End if
-      });
-    });
+        window.addEventListener("load", function () {
+        const loader = document.getElementById("loader");
+        loader.classList.add("hidden");
+        });
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://assets.codepen.io/16327/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@latest/bundled/lenis.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@latest/bundled/lenis.js"></script> -->
     <script src="./scripts.js"></script>
 </body> 
 </html>

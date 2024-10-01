@@ -34,12 +34,11 @@ body {
     text-align: center;
     font-size: 16px;
     font-weight: 400;
-    background: #000;
-    color: #fff;
+    background: #fff;
+    color: #000;
 }
 
 [data-scroll-section] {
-    height: 100vh; /* Adjust height as needed */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,6 +49,7 @@ html, body {
     min-height: 100%;
     overflow: scroll;
     overflow-y: auto; /* Ensure vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 html {
@@ -61,8 +61,13 @@ h2 {
     font-weight: 900;
     line-height: 85%;
     border-left: 3px solid #699eda;
+    border-right: 3px solid #699eda;
     padding: 5px;
-    margin: 10px
+    margin: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 h2 span { display: block; }
@@ -79,10 +84,13 @@ h2,h3,h4 {text-transform: uppercase;}
 section {padding: 0px 0;}
 
 .col {
-    width: 50%;
+    width: 60%;
 }
 
-#vertical {height: 200vh;width: 100vw;}
+#vertical {
+    height: 500px;
+    width: 100%;
+}
 
 .vertical__content {
     display: flex;
@@ -90,18 +98,22 @@ section {padding: 0px 0;}
     align-items: flex-start;
 }
 
-.vertical__content .col_left {height: 50%;}
+.vertical__content .col.col_left {
+    height: 50%;
+    font-weight: 400;
+}
 
 .vertical__content .col.col_right {
     width: 30%;
 }
 
 .vertical__item:not(:last-child) {
-    margin-bottom: 160px;
+    margin-bottom: 20px;
 }
 
 #horizontal {
-    padding: 100px 0;
+    padding: 0px 0;
+    width: 90%;
 }
 
 .horizontal__content {
@@ -110,7 +122,7 @@ section {padding: 0px 0;}
 
 .horizontal__item {
     border: 1px solid #efefef;
-    padding: 200px 150px;
+    padding: 10px 10px;
 
 }
 .horizontal__item:not(:last-child) {
@@ -122,6 +134,18 @@ section {padding: 0px 0;}
     font-weight: 900;
     font-stretch: condensed;
     color: #699eda;
+}
+
+.product-list h2 {
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 85%;
+    border-bottom-left-radius: 20px; 
+    border-top-left-radius: 20px;    
+    border-bottom-right-radius: 20px; 
+    border-top-right-radius: 20px;
+    padding: 5px;
+    margin: 10px
 }
 
 /* Paragraph styles */
@@ -138,10 +162,6 @@ a {
     color: #007BFF;
     text-decoration: none;
     font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
 }
 
 /* Image styles */
@@ -163,10 +183,6 @@ img {
     /* border-bottom: 0px solid #ccc; /* Optional border for separation */
 }
 
-.top-bar .left, .top-bar .right {
-    padding: 0 15px;
-}
-
 .top-bar span {
 	margin-right: 20px;
 }
@@ -174,6 +190,7 @@ img {
 .top-bar .top-left {
     margin-left: 85px;
     margin-bottom: 20px;
+    color: white;
 }
 
 .top-bar .top-right {
@@ -181,16 +198,25 @@ img {
     margin-bottom: 18px;
 }
 
+.top-right a {
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+    cursor: pointer;
+}
+
+.top-right a:hover {
+    transform: scale(1.25); /* Slightly increase the size on hover */
+    opacity: 0.9; /* Make the image slightly transparent */
+}
+
 .top-bar img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
 .top-bar a {
     text-decoration: none;
     color: #ffffff; /* White color */
-    font-weight: 400;
-	
+    font-weight: 400;	
 }
 
 .top-bar .email-link {
@@ -204,7 +230,6 @@ img {
 }
 
 .navbar {
-    position: sticky;
     top: 0;
     width: 100%;
     background-color: #ffffff; /* White background similar to the reference */
@@ -331,7 +356,7 @@ img {
 /* Product Section */
 .product-list {
     margin: 40px auto;
-    max-width: 900px;
+    width: 90%;
     text-align: center;
 }
 
@@ -459,26 +484,41 @@ img {
 }
  
 /* Cart preview styles */
-/* Cart preview container */
 .cart-preview {
     position: fixed;
-    top: 155px; /* Adjust depending on your navbar height */
-    right: 10px; /* Initially off-screen */
+    top: 0;
+    right: 0;
     width: 300px;
-    height: auto;
+    height: 100%; /* Full height */
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 1000;
     transition: opacity 0.5s ease, transform 0.5s ease;
-    transform: translateX(100%); /* hide the cart preview initially */
-    opacity: 0;
+    transform: translateX(100%); /* Initially hidden */
+    opacity: 0; /* Start hidden */
 }
 
 /* Visible state for the cart preview */
 .cart-preview.show {
-    transform: translateX(0); /* show the cart preview */
-    opacity: 1;
+    transform: translateX(0); /* Show cart preview */
+    opacity: 1; /* Fully visible */
+}
+
+/* Dark background overlay when cart is shown */
+body.cart-open {
+    overflow: hidden; /* Prevent scrolling */
+}
+
+body.cart-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9); /* Darken the rest of the page */
+    z-index: 999; /* Below the cart preview */
 }
 
 /* Cart item styling inside preview */
@@ -499,20 +539,40 @@ img {
     margin-bottom: 15px;
 }
 
+/* Close button (X) styling */
 .close-cart-preview {
     background: none;
     border: none;
     color: #333;
-    font-size: 20px;
+    font-size: 50px;
     font-weight: bold;
     cursor: pointer;
     position: absolute;
     top: 10px;
     right: 10px;
+    transition: color 0.3s, transform 0.3s; /* Transition for color and rotation */
 }
 
 .close-cart-preview:hover {
-    color: #699eda;
+    color: #862626; /* Change color on hover */
+    transform: rotate(90deg); /* Rotate 90 degrees on hover */
+}
+
+/* Button styles for View Basket and Checkout */
+.basket-button, .checkout-button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #699eda; /* Button color */
+    color: #fff; /* Text color */
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.basket-button:hover, .checkout-button:hover {
+    background-color: #577dca; /* Darker on hover */
 }
 
 .add-to-cart {
@@ -587,3 +647,176 @@ img {
     border-width: 10px 6px 0 6px; /* Creates an upward pointing triangle 
     border-color: #888 transparent transparent transparent;
 }*/
+
+#loader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Top bar styling */
+.top-bar {
+    height: 40px;
+    font-family: 'Arial Nova Light', sans-serif;
+	font-weight: 400;
+    background-color: #272727; /* Dark background similar to reference */
+    font-size: 12px; /* Adjust font size to be smaller */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 0px solid #ccc; /* Optional border for separation */
+}
+
+/* Footer styling */
+footer {
+    min-height: 40px;
+    font-family: 'Arial Nova Light', sans-serif;
+	font-weight: 400;
+    background-color: #272727; /* Same as topbar background */
+    color: white;
+    margin-top: auto;
+    /*padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0; */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Adjust padding based on your layout */
+}
+
+footer .footer-left {
+    margin-left: 85px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+footer .footer-right {
+    margin-right: 85px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+footer .footer-left a {
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+    cursor: pointer;
+}
+
+footer .footer-left a:hover {
+    transform: scale(1.1); /* Slightly increase the size on hover */
+    opacity: 0.9; /* Make the image slightly transparent */
+}
+
+footer img {
+    width: 30px;
+    height: 30px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #ffffff; /* White color */
+    font-weight: 400;
+}
+
+footer .email-link {
+    transition: color 0.4s ease; /* Smooth transition effect */
+    cursor: pointer;
+}
+
+footer .email-link:hover {
+    color: #3498db; /* Blue color on hover (adjust this value to your preferred shade of blue) */
+}
+
+/* Hide elements by default */
+.hidden {
+    display: none;
+}
+
+/* Hidden by default */
+#search-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Darker overlay */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: transparent;
+    text-align: center;
+    color: #fff;
+    border: none;
+    max-width: 500px;
+    width: 100%;
+}
+
+.popup-content p {
+    font-family: 'Arial Nova Light', sans-serif;
+    font-size: 20px;
+    color: #fff;
+}
+
+/* Central line for the search bar */
+.search-container {
+    position: relative;
+    margin-top: 20px;
+}
+
+.search-bar {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    outline: none;
+}
+
+/* Placeholder centered with blinking cursor */
+.search-bar::placeholder {
+    color: white;
+    text-align: center;
+}
+
+/* Close button (X) styles */
+.close-button {
+    color: #fff;
+    font-size: 80px; /* Double the size */
+    cursor: pointer;
+    position: absolute;
+    top: 200px;
+    right: 400px; /* Move the X button further right */
+    transition: color 0.3s, transform 0.3s; /* Transition for color and rotation */
+}
+
+.close-button:hover {
+    color: #862626; /* Change color on hover */
+    transform: rotate(90deg); /* Rotate 90 degrees on hover */
+}
+
+/* Hiding the button (using image as a button) */
+.search-icon {
+    cursor: pointer;
+}
