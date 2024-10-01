@@ -41,7 +41,7 @@
         <div class="navbar-center">
             <ul>
                 <li><a href="#top" class="home">Home</a></li>
-                <li><a href="#horizontal">Prodotti</a></li>
+                <li><a href="#products">Prodotti</a></li>
                 <li><a href="#aboutUs">About Us</a></li>
                 <li><a href="contact.html">Contatti</a></li>
             </ul>
@@ -49,9 +49,9 @@
         <div class="navbar-right">
             <ul>
                 <li><a><img id="search-button" src="images/search-icon.png" alt="Search" class="search-icon"></a></li>
-                <li><a href="#favourites"><img src="images/favourites-icon.png" alt="Favourites" class="favorites"><span id="fav-count" class="product-count">0</span></a></li>
+                <li><a href="#favourites"><img src="images/favorites-icon.png" alt="Favourites" class="favorites"><span id="fav-count" class="product-count">0</span></a></li>
                 <li><a href="javascript:void(0)" id="shopping-cart-preview-trigger">
-                        <img id="shopping-cart-preview" src="images/shopping-cart-icon.png" alt="ShoppingCart" class="shopping-cart">
+                        <img id="shopping-cart-preview" src="images/shopping-cart-icon.png" alt="Shopping Cart" class="shopping-cart">
                         <span id="cart-count" class="product-count">0</span></a></li>
                 <li><a href="#profile"><img src="images/profile-icon.png" alt="Profile" class="profile"></a></li>
             </ul>
@@ -77,11 +77,11 @@
     <!-- Shopping cart preview -->
     <div id="cart-preview" class="cart-preview">
         <button class="close-cart-preview">&times;</button>
-        <h4>Shopping Cart</h4>
+        <h4 class="carrello">Carrello</h4>
         <ul id="cart-preview-items"></ul>
-        <p>Total: <span id="cart-preview-total">€0.00</span></p>
-        <a href="cart.html"><button id="view-basket" class="basket-button">View Basket</button></a>
-        <button id="checkout" class="checkout-button">Checkout</button>
+        <p>Subtotale: <span id="cart-preview-total">€0.00</span></p>
+        <a href="cart.html"><button id="view-basket" class="basket-button">VISUALIZZA CARRELLO</button></a>
+        <a href="#"><button id="checkout" class="checkout-button">PAGAMENTO</button></a>
     </div>
 
     <!-- Background overlay -->
@@ -174,40 +174,65 @@
                             <a href="product.html">
                                 <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
                                 <h3>TORTA ROMANTICA</h3>
-                                <p>Fresca, bucolica, primaverile.</p>
+                                <!-- <p class="description">Fresca, bucolica, primaverile</p> -->
                                 <p>Price: €20.00</p>
                             </a>
-                            <button class="add-to-cart" data-product-id="1" data-price="20.00">Add to Cart</button>
+                            <div class="product-actions">
+                                <button class="add-to-favorites" data-product-id="1" data-price="20.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-cart" product-name="TORTA ROMANTICA" product-image="images/prodotto1.PNG" data-product-id="1" data-price="20.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
+                            </div>
                         </div>
                         
                         <div class="product-item">
                             <a href="product.html">
                                 <img src="images/prodotto2.PNG" alt="FOCACCIA">
                                 <h3>FOCACCIA</h3>
-                                <p>Solo lievito madre, 28 ore di lenta lievitazione.</p>
+                                <!-- <p class="description">Solo lievito madre, 28 ore di lenta lievitazione</p> -->
                                 <p>Prezzo: €7.50</p>
                             </a>
-                            <button class="add-to-cart" data-product-id="2" data-price="7.50">Add to Cart</button>
+                            <div class="product-actions">
+                                <button class="add-to-favorites" data-product-id="2" data-price="7.50"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-cart" product-name="FOCACCIA" product-image="images/prodotto2.PNG" data-product-id="2" data-price="7.50"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
+                            </div>
                         </div>
                         
                         <div class="product-item">
                             <a href="product.html">
                                 <img src="images/prodotto3.PNG" alt="PANZANELLA">
                                 <h3>PANZANELLA</h3>
-                                <p>La panzanella è un piatto freddo, non serve cottura.</p>
+                                <!-- <p class="description">La panzanella è un piatto freddo, non serve cottura</p> -->
                                 <p>Prezzo: €15.00</p>
                             </a>
-                            <button class="add-to-cart" data-product-id="3" data-price="15.00">Add to Cart</button>
+                            <div class="product-actions">
+                                <button class="add-to-favorites" data-product-id="3" data-price="15.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-cart" product-name="PANZANELLA" product-image="images/prodotto3.PNG" data-product-id="3" data-price="15.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
+                            </div>
                         </div>
 
                         <div class="product-item">
                             <a href="product.html">
                                 <img src="images/prodotto4.PNG" alt="CROISSANT">
                                 <h3>CROISSANT</h3>
-                                <p>Croissant fatto a mano.</p>
+                                <!-- <p class="description">Croissant fatto a mano</p> -->
                                 <p>Prezzo: €2.00</p>
                             </a>
-                            <button class="add-to-cart" data-product-id="4" data-price="2.00">Add to Cart</button>
+                            <div class="product-actions">
+                                <button class="add-to-favorites" data-product-id="4" data-price="2.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-cart" product-name="CROISSANT" product-image="images/prodotto4.PNG" data-product-id="4" data-price="2.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
+                            </div>
+                        </div>                        
+
+                        <div class="product-item">
+                            <a href="product.html">
+                                <img src="images/prodotto5.PNG" alt="BROWNIES">
+                                <h3>BROWNIES</h3>
+                                <!-- <p class="description"></p> -->
+                                <p>Prezzo: €5.00</p>
+                            </a>
+                            <div class="product-actions">
+                                <button class="add-to-favorites" data-product-id="5" data-price="5.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-cart" product-name="BROWNIES" product-image="images/prodotto5.PNG" data-product-id="5" data-price="5.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
+                            </div>
                         </div>
                     </div>
                 </section>

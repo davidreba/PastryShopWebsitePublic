@@ -38,7 +38,9 @@ function updateCartPreview() {
     cart.forEach(item => {
         let itemTotal = item.price * item.quantity;
         total += itemTotal;
-        cartPreviewItems.innerHTML += `<li>Product ${item.productId} - Qty: ${item.quantity} - €${itemTotal.toFixed(2)}</li>`;
+        cartPreviewItems.innerHTML += `<li><img src="${item.productImage}" style="width: 100px; height: 100px"> 
+        ${item.productName}<br>
+        ${item.quantity} x ${item.price.toFixed(2)} €</li>`;
     });
 
     cartPreviewTotal.textContent = `€${total.toFixed(2)}`;
@@ -48,13 +50,13 @@ function updateCartPreview() {
 }
 
 // Update the preview when a product is added
-function addToCart(productId, price) {
+function addToCart(productImage, productName, productId, price) {
     // Existing logic for adding products to the cart
     let existingItem = cart.find(item => item.productId === productId);
     if (existingItem) {
         existingItem.quantity++;
     } else {
-        cart.push({ productId: productId, price: price, quantity: 1 });
+        cart.push({ productImage: productImage, productName: productName, productId: productId, price: price, quantity: 1 });
     }
     itemQuantity++;
     saveCart();
@@ -82,8 +84,9 @@ function updateCartUI() {
         // Create a list item for each cart product with a "Remove" button
         cartItems.innerHTML += `
             <li>
-                Product ${item.productId} - Quantity: ${item.quantity} - Total: €${itemTotal.toFixed(2)}
-                <button onclick="removeFromCart(${index})">Remove</button>
+                <img src="${item.productImage}" style="width: 100px; height: 100px">
+                ${item.productName} - Quantity: ${item.quantity} - Total: €${itemTotal.toFixed(2)}
+                <button onclick="removeFromCart(${index})">Remove</button><br>
             </li>`;
     });
 
@@ -133,9 +136,11 @@ function emptyCart() {
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', function() {
+            let productImage = this.getAttribute('product-image');
+            let productName = this.getAttribute('product-name');
             let productId = this.getAttribute('data-product-id');
             let price = parseFloat(this.getAttribute('data-price'));
-            addToCart(productId, price);
+            addToCart(productImage ,productName, productId, price);
         });
     });
 
@@ -164,6 +169,13 @@ closeCartPreview.addEventListener('click', function() {
     // Add this line if not already present
     document.querySelector('.navbar').classList.remove('dark'); // Restore navbar color if needed
 });
+
+/* window.addEventListener('click', function(event) {
+    if (cartPreview.classList.contains('show') && event.target !== cartPreview) {
+        alert('This is your alert message!');
+
+    }
+}); */
 
 // Get the elements
 const searchButton = document.getElementById('search-button');

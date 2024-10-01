@@ -388,20 +388,24 @@ img {
 }
 
 .product-item {
-    flex: 0 0 45%; /* Ensures two items fit side by side */
+    height: 380px;
+    width: 20%;
     margin-right: 10px; /* Add some spacing between products */
-    box-sizing: border-box;
     text-align: center;
     border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 10px;
+    border-radius: 30px;
+}
+
+.product-item .description {
+    height: 60px;
+    align-content: center;
 }
 
 .product-item img {
-    width: 100%; /* Full width for uniform image size */
+    width: 200px; /* Full width for uniform image size */
     height: 200px; /* Fixed height */
     object-fit: cover; /* Crop the image to fit */
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .product-container::-webkit-scrollbar {
@@ -449,6 +453,20 @@ img {
     color: #699eda;
 }
 
+.cart-preview .basket-button {
+    height: 60px;
+    width: 360px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.cart-preview .checkout-button {
+    height: 60px;
+    width: 360px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 #cart-items {
     list-style-type: none;
     padding: 0;
@@ -488,7 +506,7 @@ img {
     position: fixed;
     top: 0;
     right: 0;
-    width: 300px;
+    width: 420px;
     height: 100%; /* Full height */
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -576,20 +594,45 @@ body.cart-open::before {
 }
 
 .add-to-cart {
-    background-color: #4CAF50; /* Green background similar to the reference */
+    background-color: white; /* Green background similar to the reference */
     color: white;
-    padding: 15px 20px;
     border: none;
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px;
+    border-radius: 10px; /* Rounded corners */
+    font-size: 8px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
 }
 
+.add-to-cart img {
+    height: 30px;
+    width: 30px;
+}
+
 .add-to-cart:hover {
-    background-color: #45a049; /* Darker green on hover */
-    transform: scale(1.05); /* Slightly enlarges the button on hover */
+    background-color: rgb(79, 211, 79);
+    transform: scale(1.2); /* Slightly enlarges the button on hover */
+}
+
+.add-to-favorites {
+    background-color: white;
+    color: white;
+    border: none;
+    border-radius: 10px; /* Rounded corners */
+    font-size: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+.add-to-favorites img {
+    height: 30px;
+    width: 30px;
+}
+
+.add-to-favorites:hover {
+    background-color: #ff0000;
+    transform: scale(1.2); /* Slightly enlarges the button on hover */
 }
 
 /* For WebKit browsers (Chrome, Safari, Edge) */
