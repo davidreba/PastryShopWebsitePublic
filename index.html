@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
     <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="loader"></div>
@@ -79,9 +79,14 @@
         <button class="close-cart-preview">&times;</button>
         <h4 class="carrello">Carrello</h4>
         <ul id="cart-preview-items"></ul>
-        <p>Subtotale: <span id="cart-preview-total">€0.00</span></p>
-        <a href="cart.html"><button id="view-basket" class="basket-button">VISUALIZZA CARRELLO</button></a>
-        <a href="#"><button id="checkout" class="checkout-button">PAGAMENTO</button></a>
+        <div class="cart-footer">
+            <div style="display: flex; justify-content: space-between;">
+                <p style="text-align: left; margin-left: 30px;">Subtotale:</p>
+                <p style="text-align: right; margin-right: 30px;" id="cart-preview-total">0.00 €</p>
+            </div>
+            <a href="cart.html"><button id="view-basket" class="basket-button" style="font-size: 15px;">VISUALIZZA CARRELLO</button></a>
+            <a href="#"><button id="checkout" class="checkout-button" style="font-size: 15px;">PAGAMENTO</button></a>
+        </div>
     </div>
 
     <!-- Background overlay -->

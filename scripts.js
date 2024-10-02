@@ -192,12 +192,12 @@ closeButton.addEventListener('click', function() {
     searchPopup.style.display = 'none';
 });
 
-// Close the pop-up when clicking outside of the content
+/* Close the pop-up when clicking outside of the content
 window.addEventListener('click', function(event) {
     if (event.target === searchPopup) {
         searchPopup.style.display = 'none';
     }
-});
+}); */
 
 // Trigger showCartPreview on Add to Cart click without toggling visibility
 document.querySelectorAll('.add-to-cart').forEach(button => {
