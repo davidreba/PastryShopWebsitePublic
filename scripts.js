@@ -26,6 +26,7 @@ function addToFavorites() {
 function updateCartPreview() {
     let cartPreviewItems = document.getElementById('cart-preview-items');
     let cartPreviewTotal = document.getElementById('cart-preview-total');
+    const cartFooter = document.querySelector('.cart-footer');
     
     if (!cartPreviewItems || !cartPreviewTotal) {
         console.error('Required elements are missing from the HTML.');
@@ -35,15 +36,29 @@ function updateCartPreview() {
     cartPreviewItems.innerHTML = ''; // Clear the preview display
     let total = 0;
 
-    cart.forEach(item => {
-        let itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        cartPreviewItems.innerHTML += `<li><img src="${item.productImage}" style="width: 100px; height: 100px"> 
-        ${item.productName}<br>
-        ${item.quantity} x ${item.price.toFixed(2)} €</li>`;
-    });
+    if (cart.length === 0) {
+        // Cart is empty, show the empty message
+        cartPreviewItems.innerHTML = '<p style="text-align: left; margin-left: 30px; font-size: 20px;">Nessun prodotto nel carrello!</p>';
+        cartFooter.style.display = 'none'; // Hide the footer with subtotal and buttons
+    } else {
+        // Cart has items, display them
+        cartFooter.style.display = 'block'; // Show footer if there are items
+        cart.forEach((item, index) => {
+            let itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            cartPreviewItems.innerHTML += `
+            <li>
+                <img src="${item.productImage}" style="width: 90px; height: 90px">
+                <div style="width: 100%; height: 90px;">
+                    <div style="text-align: left; text-align: top; margin-left: 20px; justify-content: space-between;">${item.productName}<br>
+                    ${item.quantity} x ${item.price.toFixed(2)} €</div>
+                    <button onclick="removeFromCart(${index})" id="remove-item" style="margin-top: 0px; margin-left: 140px; ">&times;</button>
+                </div>
+            </li>`;
+        });
+    }        
 
-    cartPreviewTotal.textContent = `€${total.toFixed(2)}`;
+    cartPreviewTotal.textContent = `${total.toFixed(2)} €`;
 
     // Show the cart preview
     document.getElementById('cart-preview').style.display = 'block';
@@ -123,6 +138,7 @@ function removeFromCart(index) {
     cart.splice(index, 1); // Remove the item at the given index
     saveCart();            // Save the updated cart to localStorage
     updateCartUI();         // Update the cart UI
+    updateCartPreview();    // Update the cart preview
 }
 
 function emptyCart() {
