@@ -1,14 +1,18 @@
 // Initialize an empty cart
 let cart = [];
+let favorites = [];
 let itemQuantity;
+let favoritesQuantity;
 
 window.onload = function() {
     loadCart();
+    loadFavorites();
+    //updateCartUI();
     updateCartPreview();
-    updateCartUI();
-    updateCounts();
+    updateFavoritesCartPreview();
+    //updateCounts();
 }
-
+/*
 // Example product count for Favorites and Cart
 let favoritesCount = 0;
 
@@ -21,7 +25,7 @@ function updateCounts() {
 function addToFavorites() {
     favoritesCount++;
     updateCounts();
-}
+} */
 
 function updateCartPreview() {
     let cartPreviewItems = document.getElementById('cart-preview-items');
@@ -64,22 +68,7 @@ function updateCartPreview() {
     document.getElementById('cart-preview').style.display = 'block';
 }
 
-// Update the preview when a product is added
-function addToCart(productImage, productName, productId, price) {
-    // Existing logic for adding products to the cart
-    let existingItem = cart.find(item => item.productId === productId);
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({ productImage: productImage, productName: productName, productId: productId, price: price, quantity: 1 });
-    }
-    itemQuantity++;
-    saveCart();
-    updateCartUI();
-    updateCartPreview(); // Update the preview
-}
-
-// Function to update cart UI
+/*// Function to update cart UI
 function updateCartUI() {
     let cartItems = document.getElementById('cart-items');
     let cartTotal = document.getElementById('cart-total');
@@ -107,6 +96,21 @@ function updateCartUI() {
 
     // Update the total price
     cartTotal.textContent = `€${total.toFixed(2)}`;
+} */
+
+// Update the preview when a product is added
+function addToCart(productImage, productName, productId, price) {
+    // Existing logic for adding products to the cart
+    let existingItem = cart.find(item => item.productId === productId);
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({ productImage: productImage, productName: productName, productId: productId, price: price, quantity: 1 });
+    }
+    itemQuantity++;
+    saveCart();
+    //updateCartUI();
+    updateCartPreview(); // Update the preview
 }
 
 // Function to save cart to local storage
@@ -137,7 +141,7 @@ function removeFromCart(index) {
     itemQuantity -= numberOfDlt;
     cart.splice(index, 1); // Remove the item at the given index
     saveCart();            // Save the updated cart to localStorage
-    updateCartUI();         // Update the cart UI
+    // updateCartUI();         // Update the cart UI
     updateCartPreview();    // Update the cart preview
 }
 
@@ -186,12 +190,177 @@ closeCartPreview.addEventListener('click', function() {
     document.querySelector('.navbar').classList.remove('dark'); // Restore navbar color if needed
 });
 
+// Trigger showCartPreview on Add to Cart click without toggling visibility
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', () => {
+        // Your existing logic for adding items to cart
+        //showCartPreview(); // Ensure it only opens without toggling it off
+    });
+});
+
 /* window.addEventListener('click', function(event) {
     if (cartPreview.classList.contains('show') && event.target !== cartPreview) {
         alert('This is your alert message!');
 
     }
 }); */
+
+/* Favorites cart */
+function updateFavoritesCartPreview() {
+    let favoritesCartPreviewItems = document.getElementById('fav-cart-preview-items');
+
+    if (!favoritesCartPreviewItems) {
+        console.error('Required elements are missing from the HTML.');
+        return;
+    }
+
+    favoritesCartPreviewItems.innerHTML = ''; // Clear the preview display
+
+    if (favorites.length === 0) {
+        // favCart is empty, show the empty message
+        favoritesCartPreviewItems.innerHTML = '<p style="text-align: left; margin-left: 30px; font-size: 20px;">Nessun prodotto è stato aggiunto alla lista dei desideri!</p>';
+    } else {
+        // favCart has items, display them
+        favorites.forEach((item, index) => {
+            favoritesCartPreviewItems.innerHTML += `
+            <li>
+                <img src="${item.productImage}" style="width: 90px; height: 90px">
+                <div style="width: 100%; height: 90px;">
+                    <div style="text-align: left; text-align: top; margin-left: 20px; justify-content: space-between;">${item.productName}<br>
+                    ${item.price.toFixed(2)} €
+                    </div>  
+                    <button onclick="addToCart(${item.productImage, item.productName, item.productId, item.price})" style="margin-top: 0px; margin-right: 50px; ">buy</button>
+                    <button onclick="removeFromFavorites(${index})" id="remove-item" style="margin-top: 0px; margin-left: 140px; ">&times;</button>
+                </div>
+            </li>`;
+        });
+    }
+
+    // Show the cart preview
+    document.getElementById('fav-cart-preview').style.display = 'block';
+}
+
+/* //Function to update fav-cart UI
+function updateFavCartUI() {
+    let favCartItems = document.getElementById('fav-cart-items');
+
+    if (!favCartItems) {
+        console.error('Required elements are missing from the HTML.');
+        return;
+    }
+
+    favCartItems.innerHTML = ''; // Clear the existing fav cart items
+
+    cart.forEach((item, index) => {
+
+        // Create a list item for each cart product with a "Remove" button
+        favCartItems.innerHTML += `
+            <li>
+                <img src="${item.productImage}" style="width: 100px; height: 100px">
+                ${item.productName} - Quantity: ${item.quantity} - Total: €${itemTotal.toFixed(2)}
+                <button onclick="removeFromCart(${index})">Remove</button><br>
+            </li>`;
+    });
+
+    // Update the total price
+    favCartTotal.textContent = `€${total.toFixed(2)}`;
+} */
+
+function addToFavorites(productImage, productName, productId, price) {
+    // Existing logic for adding products to the cart
+    let existingItem = favorites.find(item => item.productId === productId);
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        favorites.push({ productImage: productImage, productName: productName, productId: productId, price: price, quantity: 1 });
+    }
+    favoritesQuantity++;
+    saveFavorites();
+    updateFavoritesCartPreview(); // Update the preview
+}
+
+// Function to save favorites to local storage
+function saveFavorites() {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem('fQuantity', JSON.stringify(favoritesQuantity));
+    loadFavorites();
+}
+
+// Function to load favorites from local storage
+function loadFavorites() {
+    const savedFavCart = localStorage.getItem('favorites');
+    const savedFavQuantity = localStorage.getItem('fQuantity');
+    if (savedFavCart && savedFavQuantity) {
+        favorites = JSON.parse(savedFavCart);
+        favoritesQuantity = JSON.parse(savedFavQuantity);
+    } else {
+        favorites = [];
+        favoritesQuantity = 0;
+    }
+
+    // Show favorites quantity
+    document.getElementById('fav-count').innerText = favoritesQuantity;
+}
+
+function removeFromFavorites(index) {
+    let numberOfDlt = favorites[index].quantity;
+    favoritesQuantity -= numberOfDlt;
+    favorites.splice(index, 1); // Remove the item at the given index
+    saveFavorites();            // Save the updated fav cart to localStorage
+    updateFavoritesCartPreview();    // Update the fav cart preview
+}
+
+/* function emptyFavCart() {
+    favorites = []; // Clear the fav array
+    favoritesQuantity = 0;
+    saveFavorites(); // Save the empty fav cart to localStorage
+} */
+
+// Add event listeners for 'Add to Fav' buttons
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.add-to-favorites').forEach(button => {
+        button.addEventListener('click', function() {
+            let productImage = this.getAttribute('product-image');
+            let productName = this.getAttribute('product-name');
+            let productId = this.getAttribute('data-product-id');
+            let price = parseFloat(this.getAttribute('data-price'));
+            addToFavorites(productImage ,productName, productId, price);
+        });
+    });
+
+    /* Only load cart on the cart page
+    if (document.body.classList.contains('fav-cart-page')) {
+        loadFavorites();
+    }*/
+});
+
+const favoritesCartPreviewTrigger = document.getElementById('fav-cart-preview-trigger');
+const favoritesCartPreview = document.getElementById('fav-cart-preview');
+const closeFavoritesCartPreview = document.querySelector('.close-fav-cart-preview');
+
+// Open fav cart preview when icon is clicked
+favoritesCartPreviewTrigger.addEventListener('click', function() {
+    favoritesCartPreview.classList.add('show');
+    document.body.classList.add('fav-cart-open'); // Prevent scrolling and add dark background
+    // Add this line if not already present
+    document.querySelector('.navbar').classList.add('dark'); // Darken navbar if needed
+});
+
+// Close fav cart preview when 'X' is clicked
+closeFavoritesCartPreview.addEventListener('click', function() {
+    favoritesCartPreview.classList.remove('show');
+    document.body.classList.remove('fav-cart-open'); // Restore scrolling and remove dark background
+    // Add this line if not already present
+    document.querySelector('.navbar').classList.remove('dark'); // Restore navbar color if needed
+});
+
+// Trigger showFavCartPreview on AddFav to Cart click without toggling visibility
+document.querySelectorAll('.add-to-favorites').forEach(button => {
+    button.addEventListener('click', () => {
+        // Your existing logic for adding items to cart
+        //showFavoritesCartPreview(); // Ensure it only opens without toggling it off
+    });
+});
 
 // Get the elements
 const searchButton = document.getElementById('search-button');
@@ -214,14 +383,6 @@ window.addEventListener('click', function(event) {
         searchPopup.style.display = 'none';
     }
 }); */
-
-// Trigger showCartPreview on Add to Cart click without toggling visibility
-document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', () => {
-        // Your existing logic for adding items to cart
-        showCartPreview(); // Ensure it only opens without toggling it off
-    });
-});
 
 const lenis = new Lenis({
     duration: 1.2,

@@ -49,10 +49,15 @@
         <div class="navbar-right">
             <ul>
                 <li><a><img id="search-button" src="images/search-icon.png" alt="Search" class="search-icon"></a></li>
-                <li><a href="#favourites"><img src="images/favorites-icon.png" alt="Favourites" class="favorites"><span id="fav-count" class="product-count">0</span></a></li>
+                
+                <li><a href="javascript:void(0)" id="fav-cart-preview-trigger">
+                    <img id="fav-cart-preview-img" src="images/favorites-icon.png" alt="Favorites" class="favorites">
+                    <span id="fav-count" class="fav-product-count">0</span></a></li>
+                                 
                 <li><a href="javascript:void(0)" id="shopping-cart-preview-trigger">
-                        <img id="shopping-cart-preview" src="images/shopping-cart-icon.png" alt="Shopping Cart" class="shopping-cart">
-                        <span id="cart-count" class="product-count">0</span></a></li>
+                    <img id="shopping-cart-preview" src="images/shopping-cart-icon.png" alt="Shopping Cart" class="shopping-cart">
+                    <span id="cart-count" class="product-count">0</span></a></li>
+
                 <li><a href="#profile"><img src="images/profile-icon.png" alt="Profile" class="profile"></a></li>
             </ul>
         </div>
@@ -87,6 +92,21 @@
             <a href="cart.html"><button id="view-basket" class="basket-button" style="font-size: 15px;">VISUALIZZA CARRELLO</button></a>
             <a href="#"><button id="checkout" class="checkout-button" style="font-size: 15px;">PAGAMENTO</button></a>
         </div>
+    </div>
+
+    <!-- Favorites cart preview -->
+    <div id="fav-cart-preview" class="fav-cart-preview">
+        <button class="close-fav-cart-preview">&times;</button>
+        <p class="lista-desideri" style="text-align: left; margin-left: 30px; font-size: 25px; font-weight: 700;">Lista dei desideri</p>
+        <ul id="fav-cart-preview-items"></ul>
+        <!-- <div class="fav-cart-footer">
+            <div style="display: flex; justify-content: space-between;">
+                <p style="text-align: left; margin-left: 30px;">Subtotale:</p>
+                <p style="text-align: right; margin-right: 30px;" id="cart-preview-total">0.00 €</p>
+            </div>
+            <a href="cart.html"><button id="view-basket" class="basket-button" style="font-size: 15px;">VISUALIZZA CARRELLO</button></a>
+            <a href="#"><button id="checkout" class="checkout-button" style="font-size: 15px;">PAGAMENTO</button></a>
+        </div>-->
     </div>
 
     <!-- Background overlay -->
@@ -183,7 +203,7 @@
                                 <p>Price: €20.00</p>
                             </a>
                             <div class="product-actions">
-                                <button class="add-to-favorites" data-product-id="1" data-price="20.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-favorites" product-name="TORTA ROMANTICA" product-image="images/prodotto1.PNG" data-product-id="1" data-price="20.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
                                 <button class="add-to-cart" product-name="TORTA ROMANTICA" product-image="images/prodotto1.PNG" data-product-id="1" data-price="20.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
                             </div>
                         </div>
@@ -196,7 +216,7 @@
                                 <p>Prezzo: €7.50</p>
                             </a>
                             <div class="product-actions">
-                                <button class="add-to-favorites" data-product-id="2" data-price="7.50"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-favorites" product-name="FOCACCIA" product-image="images/prodotto2.PNG" data-product-id="2" data-price="7.50"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
                                 <button class="add-to-cart" product-name="FOCACCIA" product-image="images/prodotto2.PNG" data-product-id="2" data-price="7.50"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
                             </div>
                         </div>
@@ -209,7 +229,7 @@
                                 <p>Prezzo: €15.00</p>
                             </a>
                             <div class="product-actions">
-                                <button class="add-to-favorites" data-product-id="3" data-price="15.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-favorites" product-name="PANZANELLA" product-image="images/prodotto3.PNG" data-product-id="3" data-price="15.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
                                 <button class="add-to-cart" product-name="PANZANELLA" product-image="images/prodotto3.PNG" data-product-id="3" data-price="15.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
                             </div>
                         </div>
@@ -222,7 +242,7 @@
                                 <p>Prezzo: €2.00</p>
                             </a>
                             <div class="product-actions">
-                                <button class="add-to-favorites" data-product-id="4" data-price="2.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-favorites" product-name="CROISSANT" product-image="images/prodotto4.PNG" data-product-id="4" data-price="2.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
                                 <button class="add-to-cart" product-name="CROISSANT" product-image="images/prodotto4.PNG" data-product-id="4" data-price="2.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
                             </div>
                         </div>                        
@@ -235,7 +255,7 @@
                                 <p>Prezzo: €5.00</p>
                             </a>
                             <div class="product-actions">
-                                <button class="add-to-favorites" data-product-id="5" data-price="5.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-favorites" product-name="BROWNIES" product-image="images/prodotto5.PNG" data-product-id="5" data-price="5.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
                                 <button class="add-to-cart" product-name="BROWNIES" product-image="images/prodotto5.PNG" data-product-id="5" data-price="5.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
                             </div>
                         </div>

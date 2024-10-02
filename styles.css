@@ -339,13 +339,98 @@ img {
 .product-count {
     position: relative;
     top: -20px;
-    left: -10px;
+    left: -15px;
     background-color: #862626; /* Red background for the number */
     color: #fff;
     border-radius: 80%;
     padding: 2px 4px;
     font-size: 10px;
     font-weight: bold;
+}
+
+.fav-cart-preview {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 420px;
+    height: 100%; /* Full height */
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateX(100%);  /* Initially hidden */
+    /* opacity: 0; 
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column; */
+}
+
+/* Cart item styling inside preview */
+.fav-cart-preview ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.fav-cart-preview ul li {
+    display: flex;
+    font-size: 16px;
+    color: black;
+}
+
+.fav-cart-preview ul li img {
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+
+#fav-cart-preview-items {
+    max-height: 45%; /* Adjust the height based on your layout */
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+.fav-cart-preview-items::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+/* Visible state for the cart preview */
+.fav-cart-preview.show {
+    transform: translateX(0); /* Show cart preview */
+    opacity: 1; /* Fully visible */
+}
+
+.fav-product-count {
+    position: relative;
+    top: -20px;
+    left: -15px;
+    background-color: #862626; /* Red background for the number */
+    color: #fff;
+    border-radius: 80%;
+    padding: 2px 4px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* Close button (X) styling */
+.close-fav-cart-preview {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    transition: color 0.3s, transform 0.3s; /* Transition for color and rotation */
+}
+
+.close-fav-cart-preview:hover {
+    color: #862626; /* Change color on hover */
+    transform: rotate(90deg); /* Rotate 90 degrees on hover */
 }
 
 @media (max-width: 768px) {
@@ -598,25 +683,6 @@ body.cart-open::before {
 .cart-preview ul li img {
     margin-left: 30px;
     margin-bottom: 10px;
-}
-
-.remove-item {
-    background: none;
-    border: none;
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 5px;
-    transition: color 0.3s, transform 0.3s;
-}
-
-.remove-item:hover {
-    color: #862626; /* Change color on hover */
-    transform: scale(1.2); /* Slightly enlarge on hover */
 }
 
 /* Close button (X) styling */
