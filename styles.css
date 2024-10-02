@@ -743,6 +743,28 @@ body.cart-open::before {
     transform: scale(1.2); /* Slightly enlarges the button on hover */
 }
 
+#add-to-cart-from-fav {
+    margin-top: 10px;
+    background-color: rgb(113, 241, 124); /* Green background similar to the reference */
+    color: white;
+    border: none;
+    border-radius: 0px;
+    font-size: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+#add-to-cart-from-fav img {
+    height: 30px;
+    width: 30px;
+}
+
+#add-to-cart-from-fav:hover {
+    background-color: rgb(79, 211, 79);
+    transform: scale(1.1); /* Slightly enlarges the button on hover */
+}
+
 .add-to-favorites {
     background-color: white;
     color: white;

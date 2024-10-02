@@ -48,17 +48,23 @@ function updateCartPreview() {
         // Cart has items, display them
         cartFooter.style.display = 'block'; // Show footer if there are items
         cart.forEach((item, index) => {
-            let itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            cartPreviewItems.innerHTML += `
-            <li>
-                <img src="${item.productImage}" style="width: 90px; height: 90px">
-                <div style="width: 100%; height: 90px;">
-                    <div style="text-align: left; text-align: top; margin-left: 20px; justify-content: space-between;">${item.productName}<br>
-                    ${item.quantity} x ${item.price.toFixed(2)} €</div>
-                    <button onclick="removeFromCart(${index})" id="remove-item" style="margin-top: 0px; margin-left: 140px; ">&times;</button>
-                </div>
-            </li>`;
+            let itemPrice = parseFloat(item.price);  // Convert price to a number
+            if (!isNaN(itemPrice)) {
+                let itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                // Uncomment for debugging console.log("pI ", item.productImage, " pN ", item.productName, " pId ", item.productId, " p ", item.price);
+                cartPreviewItems.innerHTML += `
+                <li>
+                    <img src="${item.productImage}" style="width: 90px; height: 90px">
+                    <div style="width: 100%; height: 90px;">
+                        <div style="text-align: left; text-align: top; margin-left: 20px; justify-content: space-between;">${item.productName}<br>
+                        ${item.quantity} x ${itemPrice.toFixed(2)} €</div>
+                        <button onclick="removeFromCart(${index})" id="remove-item" style="margin-top: 0px; margin-left: 140px; ">&times;</button>
+                    </div>
+                </li>`;
+            } else {
+                console.error('Price is not a valid number for product:', item.productName);
+            }
         });
     }        
 
@@ -101,6 +107,7 @@ function updateCartUI() {
 // Update the preview when a product is added
 function addToCart(productImage, productName, productId, price) {
     // Existing logic for adding products to the cart
+    // Uncomment for debugingconsole.log("pI ", productImage, " pN ", productName, " pId ", productId, " p ", price);
     let existingItem = cart.find(item => item.productId === productId);
     if (existingItem) {
         existingItem.quantity++;
@@ -228,9 +235,10 @@ function updateFavoritesCartPreview() {
                 <div style="width: 100%; height: 90px;">
                     <div style="text-align: left; text-align: top; margin-left: 20px; justify-content: space-between;">${item.productName}<br>
                     ${item.price.toFixed(2)} €
-                    </div>  
-                    <button onclick="addToCart(${item.productImage, item.productName, item.productId, item.price})" style="margin-top: 0px; margin-right: 50px; ">buy</button>
-                    <button onclick="removeFromFavorites(${index})" id="remove-item" style="margin-top: 0px; margin-left: 140px; ">&times;</button>
+                    </div> 
+                    <button onclick="addToCart('${item.productImage}', '${item.productName}', '${item.productId}', '${item.price}')" id="add-to-cart-from-fav" style="margin-top: 0px; margin-left: 10px;">Buy
+                    <img src="images/shopping-cart-icon.png" style="height: 30px; width: 30px;"></button>
+                    <button onclick="removeFromFavorites(${index})" id="remove-item" style="margin-top: 0px; margin-left: 140px; ">&times;</button> 
                 </div>
             </li>`;
         });
