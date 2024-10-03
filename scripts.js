@@ -1,8 +1,21 @@
-// Initialize an empty cart
+// Initialize
+let products = []; // This could be a global array where all products are added
 let cart = [];
 let favorites = [];
 let itemQuantity;
 let favoritesQuantity;
+
+const cartPreviewTrigger = document.getElementById('shopping-cart-preview-trigger');
+const cartPreview = document.getElementById('cart-preview');
+const closeCartPreview = document.querySelector('.close-cart-preview');
+
+const favoritesCartPreviewTrigger = document.getElementById('fav-cart-preview-trigger');
+const favoritesCartPreview = document.getElementById('fav-cart-preview');
+const closeFavoritesCartPreview = document.querySelector('.close-fav-cart-preview');
+
+const searchButton = document.getElementById('search-button');
+const searchPopup = document.getElementById('search-popup');
+const closeButton = document.querySelector('.close-button');
 
 window.onload = function() {
     loadCart();
@@ -10,22 +23,101 @@ window.onload = function() {
     //updateCartUI();
     updateCartPreview();
     updateFavoritesCartPreview();
-    //updateCounts();
-}
-/*
-// Example product count for Favorites and Cart
-let favoritesCount = 0;
 
-// Function to update the counts (call this function when adding products to favorites/cart)
-function updateCounts() {
-    document.getElementById('fav-count').innerText = favoritesCount;
+    // Open cart preview when icon is clicked
+    if(cartPreviewTrigger) {
+        cartPreviewTrigger.addEventListener('click', function() {
+            cartPreview.classList.add('show');
+            document.body.classList.add('cart-open'); // Prevent scrolling and add dark background
+            // Add this line if not already present
+            document.querySelector('.navbar').classList.add('dark'); // Darken navbar if needed
+        });
+    } else {
+        console.error('Element with ID "element-id" not found.');
+    }
+        
+    // Close cart preview when 'X' is clicked
+    if(closeCartPreview) {
+        closeCartPreview.addEventListener('click', function() {
+            cartPreview.classList.remove('show');
+            document.body.classList.remove('cart-open'); // Restore scrolling and remove dark background
+            // Add this line if not already present
+            document.querySelector('.navbar').classList.remove('dark'); // Restore navbar color if needed
+        });
+    } else {
+        console.error('Element with ID "element-id" not found.');
+    }
+
+    // Open fav cart preview when icon is clicked
+    if(favoritesCartPreviewTrigger) {
+        favoritesCartPreviewTrigger.addEventListener('click', function() {
+            favoritesCartPreview.classList.add('show');
+            document.body.classList.add('fav-cart-open'); // Prevent scrolling and add dark background
+            // Add this line if not already present
+            document.querySelector('.navbar').classList.add('dark'); // Darken navbar if needed
+        });
+    } else {
+        console.error('Element with ID "element-id" not found.');
+    }
+    
+    // Close fav cart preview when 'X' is clicked
+    if(closeFavoritesCartPreview) {
+        closeFavoritesCartPreview.addEventListener('click', function() {
+            favoritesCartPreview.classList.remove('show');
+            document.body.classList.remove('fav-cart-open'); // Restore scrolling and remove dark background
+            // Add this line if not already present
+            document.querySelector('.navbar').classList.remove('dark'); // Restore navbar color if needed
+        });
+    } else {
+        console.error('Element with ID "element-id" not found.');
+    }
+
+    // Show the pop-up when search button is clicked
+    searchButton.addEventListener('click', function() {
+        searchPopup.style.display = 'flex';
+    });
+    
+    // Close the pop-up when 'X' is clicked
+    closeButton.addEventListener('click', function() {
+        searchPopup.style.display = 'none';
+    });
 }
 
-// Example of how to increment the count (this would be tied to your add-to-cart and add-to-favorites logic)
-function addToFavorites() {
-    favoritesCount++;
-    updateCounts();
-} */
+function addProduct(productImage, productName, productId, productPrice) {
+    // Push the new product to the products array
+    products.push({
+        productImage: productImage,
+        productName: productName,
+        productId: productId,
+        productPrice: productPrice
+    });
+
+    // Now update the UI or cart/fav logic as needed
+    updateProductDisplay();
+}
+
+// Function to update the product display on the homepage
+function updateProductDisplay() {
+    let productContainer = document.getElementById('product-container'); // Assuming you have a container for products in HTML
+    productContainer.innerHTML = ''; // Clear it first
+
+    products.forEach((product, index) => {
+        productContainer.innerHTML += `
+            <div class="product-item">
+                            <a href="product.html">
+                                <img src="${product.productImage}" alt="${product.productName}">
+                                <h3>${product.productName}</h3>
+                                <!-- <p class="description">Fresca, bucolica, primaverile</p> --
+                                <p>Price: ${product.productPrice.toFixed(2)}</p>
+                            </a>
+                            <div class="product-actions">
+                                <button class="add-to-favorites" product-name="${product.productName}" product-image="${product.productImage}" data-product-id="1" data-price="${product.productPrice.toFixed(2)}"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                                <button class="add-to-cart" product-name="${product.productName}" product-image="${product.productImage}" data-product-id="1" data-price="${product.productPrice.toFixed(2)}"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
+                            </div>
+                        </div>
+        `;
+    });
+}
 
 function updateCartPreview() {
     let cartPreviewItems = document.getElementById('cart-preview-items');
@@ -54,14 +146,18 @@ function updateCartPreview() {
                 total += itemTotal;
                 // Uncomment for debugging console.log("pI ", item.productImage, " pN ", item.productName, " pId ", item.productId, " p ", item.price);
                 cartPreviewItems.innerHTML += `
-                <li>
-                    <img src="${item.productImage}" style="width: 90px; height: 90px">
-                    <div style="width: 100%; height: 90px;">
-                        <div style="text-align: left; text-align: top; margin-left: 20px; justify-content: space-between;">${item.productName}<br>
-                        ${item.quantity} x ${itemPrice.toFixed(2)} €</div>
-                        <button onclick="removeFromCart(${index})" id="remove-item" style="margin-top: 0px; margin-left: 140px; ">&times;</button>
-                    </div>
-                </li>`;
+                <li style="display: flex; align-items: flex-start;">
+    <img src="${item.productImage}" style="width: 90px; height: 90px;">
+    <div style="margin-left: 10px; display: flex; flex-direction: column; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span style="margin-bottom: 5px; margin-left: 10px;">${item.productName}</span>
+            <button onclick="removeFromCart(${index})" id="remove-item" style="background: none; border: none; font-size: 20px; font-weight: bold; cursor: pointer; margin-right: 35px;">&times;</button>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span style="margin-left: 10px;">${item.quantity} x ${itemPrice.toFixed(2)} €</span>
+        </div>
+    </div>
+</li>`;
             } else {
                 console.error('Price is not a valid number for product:', item.productName);
             }
@@ -177,26 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-const cartPreviewTrigger = document.getElementById('shopping-cart-preview-trigger');
-const cartPreview = document.getElementById('cart-preview');
-const closeCartPreview = document.querySelector('.close-cart-preview');
-
-// Open cart preview when icon is clicked
-cartPreviewTrigger.addEventListener('click', function() {
-    cartPreview.classList.add('show');
-    document.body.classList.add('cart-open'); // Prevent scrolling and add dark background
-    // Add this line if not already present
-    document.querySelector('.navbar').classList.add('dark'); // Darken navbar if needed
-});
-
-// Close cart preview when 'X' is clicked
-closeCartPreview.addEventListener('click', function() {
-    cartPreview.classList.remove('show');
-    document.body.classList.remove('cart-open'); // Restore scrolling and remove dark background
-    // Add this line if not already present
-    document.querySelector('.navbar').classList.remove('dark'); // Restore navbar color if needed
-});
-
 // Trigger showCartPreview on Add to Cart click without toggling visibility
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
@@ -278,11 +354,13 @@ function addToFavorites(productImage, productName, productId, price) {
     // Existing logic for adding products to the cart
     let existingItem = favorites.find(item => item.productId === productId);
     if (existingItem) {
-        existingItem.quantity++;
+        alert('This product is already in your favorites')
     } else {
         favorites.push({ productImage: productImage, productName: productName, productId: productId, price: price, quantity: 1 });
+        favoritesQuantity++;
+        // Mark button as "added to favorites"
+        // document.getElementById(`fav-button-${item.productId}`).classList.add('added-to-fav');
     }
-    favoritesQuantity++;
     saveFavorites();
     updateFavoritesCartPreview(); // Update the preview
 }
@@ -342,47 +420,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }*/
 });
 
-const favoritesCartPreviewTrigger = document.getElementById('fav-cart-preview-trigger');
-const favoritesCartPreview = document.getElementById('fav-cart-preview');
-const closeFavoritesCartPreview = document.querySelector('.close-fav-cart-preview');
-
-// Open fav cart preview when icon is clicked
-favoritesCartPreviewTrigger.addEventListener('click', function() {
-    favoritesCartPreview.classList.add('show');
-    document.body.classList.add('fav-cart-open'); // Prevent scrolling and add dark background
-    // Add this line if not already present
-    document.querySelector('.navbar').classList.add('dark'); // Darken navbar if needed
-});
-
-// Close fav cart preview when 'X' is clicked
-closeFavoritesCartPreview.addEventListener('click', function() {
-    favoritesCartPreview.classList.remove('show');
-    document.body.classList.remove('fav-cart-open'); // Restore scrolling and remove dark background
-    // Add this line if not already present
-    document.querySelector('.navbar').classList.remove('dark'); // Restore navbar color if needed
-});
-
 // Trigger showFavCartPreview on AddFav to Cart click without toggling visibility
 document.querySelectorAll('.add-to-favorites').forEach(button => {
     button.addEventListener('click', () => {
         // Your existing logic for adding items to cart
         //showFavoritesCartPreview(); // Ensure it only opens without toggling it off
     });
-});
-
-// Get the elements
-const searchButton = document.getElementById('search-button');
-const searchPopup = document.getElementById('search-popup');
-const closeButton = document.querySelector('.close-button');
-
-// Show the pop-up when search button is clicked
-searchButton.addEventListener('click', function() {
-    searchPopup.style.display = 'flex';
-});
-
-// Close the pop-up when 'X' is clicked
-closeButton.addEventListener('click', function() {
-    searchPopup.style.display = 'none';
 });
 
 /* Close the pop-up when clicking outside of the content
@@ -464,3 +507,7 @@ window.onclick = function(event) {
 document.querySelector('.scroll-down').addEventListener('click', function() {
     document.querySelector('.scroll-content').scrollBy(0, 50); // Adjust scroll amount
 });*/
+
+function productAdded () {
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+}

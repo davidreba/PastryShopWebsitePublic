@@ -48,16 +48,13 @@
         </div>
         <div class="navbar-right">
             <ul>
-                <li><a><img id="search-button" src="images/search-icon.png" alt="Search" class="search-icon"></a></li>
-                
+                <li><a><img id="search-button" src="images/search-icon.png" alt="Search" class="search-icon"></a></li>                
                 <li><a href="javascript:void(0)" id="fav-cart-preview-trigger">
                     <img id="fav-cart-preview-img" src="images/favorites-icon.png" alt="Favorites" class="favorites">
-                    <span id="fav-count" class="fav-product-count">0</span></a></li>
-                                 
+                    <span id="fav-count" class="fav-product-count">0</span></a></li>                                 
                 <li><a href="javascript:void(0)" id="shopping-cart-preview-trigger">
                     <img id="shopping-cart-preview" src="images/shopping-cart-icon.png" alt="Shopping Cart" class="shopping-cart">
                     <span id="cart-count" class="product-count">0</span></a></li>
-
                 <li><a href="#profile"><img src="images/profile-icon.png" alt="Profile" class="profile"></a></li>
             </ul>
         </div>
@@ -194,12 +191,12 @@
             -->
                 <section id="products" class="product-list">
                     <h2><br>&nbsp;&nbsp;&nbsp;Migliori venditori&nbsp;&nbsp;&nbsp;<br><br></h2>
-                    <div class="product-container">
-                        <div class="product-item">
+                    <div id="product-container"> <!-- if product items uncommented change from id to class -->
+                        <!-- <div class="product-item">
                             <a href="product.html">
                                 <img src="images/prodotto1.PNG" alt="TORTA ROMANTICA">
                                 <h3>TORTA ROMANTICA</h3>
-                                <!-- <p class="description">Fresca, bucolica, primaverile</p> -->
+                                <!-- <p class="description">Fresca, bucolica, primaverile</p> --
                                 <p>Price: €20.00</p>
                             </a>
                             <div class="product-actions">
@@ -212,7 +209,7 @@
                             <a href="product.html">
                                 <img src="images/prodotto2.PNG" alt="FOCACCIA">
                                 <h3>FOCACCIA</h3>
-                                <!-- <p class="description">Solo lievito madre, 28 ore di lenta lievitazione</p> -->
+                                <!-- <p class="description">Solo lievito madre, 28 ore di lenta lievitazione</p> --
                                 <p>Prezzo: €7.50</p>
                             </a>
                             <div class="product-actions">
@@ -225,7 +222,7 @@
                             <a href="product.html">
                                 <img src="images/prodotto3.PNG" alt="PANZANELLA">
                                 <h3>PANZANELLA</h3>
-                                <!-- <p class="description">La panzanella è un piatto freddo, non serve cottura</p> -->
+                                <!-- <p class="description">La panzanella è un piatto freddo, non serve cottura</p> --
                                 <p>Prezzo: €15.00</p>
                             </a>
                             <div class="product-actions">
@@ -238,7 +235,7 @@
                             <a href="product.html">
                                 <img src="images/prodotto4.PNG" alt="CROISSANT">
                                 <h3>CROISSANT</h3>
-                                <!-- <p class="description">Croissant fatto a mano</p> -->
+                                <!-- <p class="description">Croissant fatto a mano</p> --
                                 <p>Prezzo: €2.00</p>
                             </a>
                             <div class="product-actions">
@@ -251,14 +248,14 @@
                             <a href="product.html">
                                 <img src="images/prodotto5.PNG" alt="BROWNIES">
                                 <h3>BROWNIES</h3>
-                                <!-- <p class="description"></p> -->
+                                <!-- <p class="description"></p> --
                                 <p>Prezzo: €5.00</p>
                             </a>
                             <div class="product-actions">
                                 <button class="add-to-favorites" product-name="BROWNIES" product-image="images/prodotto5.PNG" data-product-id="5" data-price="5.00"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
                                 <button class="add-to-cart" product-name="BROWNIES" product-image="images/prodotto5.PNG" data-product-id="5" data-price="5.00"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </section>
           <!--  </div>
@@ -276,7 +273,7 @@
                 <span><a href="mailto:reba@hotmail.com" class="email-link">reba@hotmail.com</a></span>
             </div>
         </div>
-    </footer>
+    </footer>    
 
     <script>
         window.addEventListener("load", function () {

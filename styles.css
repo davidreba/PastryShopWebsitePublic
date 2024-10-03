@@ -318,12 +318,16 @@ img {
 }
 
 .navbar-right {
-    margin-right: 90px;
+    margin-right: 85px;
     flex: 1;
     display: flex;
     justify-content: flex-end;
     gap: 15px;
     padding-bottom: 15px;
+}
+
+.navbar-right .favorites {
+    margin-left: 13px;
 }
 
 .navbar-right img {
@@ -385,7 +389,7 @@ img {
 }
 
 #fav-cart-preview-items {
-    max-height: 45%; /* Adjust the height based on your layout */
+    max-height: 100%; /* Adjust the height based on your layout */
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: none; /* For Firefox */
@@ -667,6 +671,22 @@ body.cart-open::before {
     z-index: 999; /* Below the cart preview */
 }
 
+/* Dark background overlay when cart is shown */
+body.fav-cart-open {
+    overflow: hidden; /* Prevent scrolling */
+}
+
+body.fav-cart-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9); /* Darken the rest of the page */
+    z-index: 999; /* Below the cart preview */
+}
+
 /* Cart item styling inside preview */
 .cart-preview ul {
     list-style-type: none;
@@ -779,6 +799,10 @@ body.cart-open::before {
 .add-to-favorites img {
     height: 30px;
     width: 30px;
+}
+
+.add-to-fav.added-to-fav {
+    background-color: red; /* Change background when added */
 }
 
 .add-to-favorites:hover {
