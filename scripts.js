@@ -23,6 +23,7 @@ window.onload = function() {
     //updateCartUI();
     updateCartPreview();
     updateFavoritesCartPreview();
+    displayProducts();
 
     // Open cart preview when icon is clicked
     if(cartPreviewTrigger) {
@@ -312,7 +313,7 @@ function updateFavoritesCartPreview() {
                     <div style="text-align: left; text-align: top; margin-left: 20px; justify-content: space-between;">${item.productName}<br>
                     ${item.price.toFixed(2)} €
                     </div> 
-                    <button onclick="addToCart('${item.productImage}', '${item.productName}', '${item.productId}', '${item.price}')" id="add-to-cart-from-fav" style="margin-top: 0px; margin-left: 10px;">Buy
+                    <button onclick="addToCart('${item.productImage}', '${item.productName}', '${item.productId}', '${item.price.toFixed(2)}')" id="add-to-cart-from-fav" style="margin-top: 0px; margin-left: 10px;">Buy
                     <img src="images/shopping-cart-icon.png" style="height: 30px; width: 30px;"></button>
                     <button onclick="removeFromFavorites(${index})" id="remove-item" style="margin-top: 0px; margin-left: 140px; ">&times;</button> 
                 </div>
@@ -511,3 +512,51 @@ document.querySelector('.scroll-down').addEventListener('click', function() {
 function productAdded () {
     let products = JSON.parse(localStorage.getItem('products')) || [];
 }
+
+// Function to load and display products from IndexedDB
+function loadProductsFromIndexedDB() {
+    openDatabase().then((db) => {
+        const transaction = db.transaction('products', 'readonly');
+        const store = transaction.objectStore('products');
+        const request = store.getAll();  // Get all products
+
+        request.onsuccess = (event) => {
+            const products = event.target.result;
+            displayProductsOnIndexPage(products); // Function to display products
+        };
+
+        request.onerror = (event) => {
+            console.error('Error fetching products:', event.target.error);
+        };
+    }).catch((error) => {
+        console.error('Error opening database:', error);
+    });
+}
+
+// Function to display products on index.html
+function displayProductsOnIndexPage(products) {
+    const productContainer = document.getElementById('product-container');
+    productContainer.innerHTML = '';  // Clear existing products
+
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product-item');
+        productDiv.innerHTML = `            
+            <div class="product-item">
+                <a href="product.html">
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>Price: ${product.price.toFixed(2)} €</p>
+                </a>
+                <div class="product-actions">
+                    <button class="add-to-favorites" product-name="${product.name}" product-image="${product.image}" data-product-id="${product.id}" data-price="${product.price}"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
+                    <button class="add-to-cart" product-name="${product.name}" product-image="${product.image}" data-product-id="${product.id}" data-price="${product.price}"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
+                </div>
+            </div>
+        `;
+        productContainer.appendChild(productDiv);  // Add product to the container
+    });
+}
+
+// Load products when the page is loaded
+window.addEventListener('DOMContentLoaded', loadProductsFromIndexedDB);

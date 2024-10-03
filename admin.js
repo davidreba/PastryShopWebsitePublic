@@ -120,6 +120,7 @@ function loadProducts() {
 
         request.onsuccess = (event) => {
             displayProducts(event.target.result);
+            console.log('Products loaded successfully');
         };
 
         request.onerror = (event) => {
