@@ -6,11 +6,31 @@ body {
 }
 
 .container {
-    width: 50%;
-    margin: auto;
+    width: 45%;
     background-color: white;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Make the products list flexbox */
+#product-list {
+    display: flex;
+    flex-wrap: wrap; /* Wrap to the next line if there are too many items */
+    gap: 20px; /* Add some space between products */
+    justify-content: left;
+}
+
+/* Parent flex container to hold both forms side by side */
+.form-wrapper {
+    display: flex;
+    justify-content: space-between; /* Align forms next to each other */
+    gap: 20px; /* Space between the forms */
+}
+
+/* Flex children will have equal width */
+.container form {
+    width: 100%;
 }
 
 form {
