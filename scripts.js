@@ -23,7 +23,7 @@ window.onload = function() {
     //updateCartUI();
     updateCartPreview();
     updateFavoritesCartPreview();
-    displayProducts();
+    loadProductsToIndex();
 
     // Open cart preview when icon is clicked
     if(cartPreviewTrigger) {
@@ -84,42 +84,6 @@ window.onload = function() {
     });
 }
 
-function addProduct(productImage, productName, productId, productPrice) {
-    // Push the new product to the products array
-    products.push({
-        productImage: productImage,
-        productName: productName,
-        productId: productId,
-        productPrice: productPrice
-    });
-
-    // Now update the UI or cart/fav logic as needed
-    updateProductDisplay();
-}
-
-// Function to update the product display on the homepage
-function updateProductDisplay() {
-    let productContainer = document.getElementById('product-container'); // Assuming you have a container for products in HTML
-    productContainer.innerHTML = ''; // Clear it first
-
-    products.forEach((product, index) => {
-        productContainer.innerHTML += `
-            <div class="product-item">
-                            <a href="product.html">
-                                <img src="${product.productImage}" alt="${product.productName}">
-                                <h3>${product.productName}</h3>
-                                <!-- <p class="description">Fresca, bucolica, primaverile</p> --
-                                <p>Price: ${product.productPrice.toFixed(2)}</p>
-                            </a>
-                            <div class="product-actions">
-                                <button class="add-to-favorites" product-name="${product.productName}" product-image="${product.productImage}" data-product-id="1" data-price="${product.productPrice.toFixed(2)}"><img id="add-to-fav-img" src="images/favorites-icon.png" alt="Add to Favorites"></button>
-                                <button class="add-to-cart" product-name="${product.productName}" product-image="${product.productImage}" data-product-id="1" data-price="${product.productPrice.toFixed(2)}"><img id="add-to-cart-img" src="images/shopping-cart-icon.png" alt="Add to Cart"></button>
-                            </div>
-                        </div>
-        `;
-    });
-}
-
 function updateCartPreview() {
     let cartPreviewItems = document.getElementById('cart-preview-items');
     let cartPreviewTotal = document.getElementById('cart-preview-total');
@@ -148,17 +112,17 @@ function updateCartPreview() {
                 // Uncomment for debugging console.log("pI ", item.productImage, " pN ", item.productName, " pId ", item.productId, " p ", item.price);
                 cartPreviewItems.innerHTML += `
                 <li style="display: flex; align-items: flex-start;">
-    <img src="${item.productImage}" style="width: 90px; height: 90px;">
-    <div style="margin-left: 10px; display: flex; flex-direction: column; width: 100%;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <span style="margin-bottom: 5px; margin-left: 10px;">${item.productName}</span>
-            <button onclick="removeFromCart(${index})" id="remove-item" style="background: none; border: none; font-size: 20px; font-weight: bold; cursor: pointer; margin-right: 35px;">&times;</button>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <span style="margin-left: 10px;">${item.quantity} x ${itemPrice.toFixed(2)} €</span>
-        </div>
-    </div>
-</li>`;
+                    <img src="${item.productImage}" style="width: 90px; height: 90px;">
+                    <div style="margin-left: 10px; display: flex; flex-direction: column; width: 100%;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <span style="margin-bottom: 5px; margin-left: 10px;">${item.productName}</span>
+                            <button onclick="removeFromCart(${index})" id="remove-item" style="background: none; border: none; font-size: 20px; font-weight: bold; cursor: pointer; margin-right: 35px;">&times;</button>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <span style="margin-left: 10px;">${item.quantity} x ${itemPrice.toFixed(2)} €</span>
+                        </div>
+                    </div>
+                </li>`;
             } else {
                 console.error('Price is not a valid number for product:', item.productName);
             }
@@ -397,12 +361,6 @@ function removeFromFavorites(index) {
     updateFavoritesCartPreview();    // Update the fav cart preview
 }
 
-/* function emptyFavCart() {
-    favorites = []; // Clear the fav array
-    favoritesQuantity = 0;
-    saveFavorites(); // Save the empty fav cart to localStorage
-} */
-
 // Add event listeners for 'Add to Fav' buttons
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.add-to-favorites').forEach(button => {
@@ -509,27 +467,24 @@ document.querySelector('.scroll-down').addEventListener('click', function() {
     document.querySelector('.scroll-content').scrollBy(0, 50); // Adjust scroll amount
 });*/
 
-function productAdded () {
-    let products = JSON.parse(localStorage.getItem('products')) || [];
-}
+function openDatabase() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open('ProductsDatabase', 1);
 
-// Function to load and display products from IndexedDB
-function loadProductsFromIndexedDB() {
-    openDatabase().then((db) => {
-        const transaction = db.transaction('products', 'readonly');
-        const store = transaction.objectStore('products');
-        const request = store.getAll();  // Get all products
-
-        request.onsuccess = (event) => {
-            const products = event.target.result;
-            displayProductsOnIndexPage(products); // Function to display products
+        request.onupgradeneeded = function(event) {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('products')) {
+                db.createObjectStore('products', { keyPath: 'id' });
+            }
         };
 
-        request.onerror = (event) => {
-            console.error('Error fetching products:', event.target.error);
+        request.onsuccess = function(event) {
+            resolve(event.target.result);
         };
-    }).catch((error) => {
-        console.error('Error opening database:', error);
+
+        request.onerror = function(event) {
+            reject(event.target.error);
+        };
     });
 }
 
@@ -558,5 +513,26 @@ function displayProductsOnIndexPage(products) {
     });
 }
 
-// Load products when the page is loaded
-window.addEventListener('DOMContentLoaded', loadProductsFromIndexedDB);
+// Function to load and display products from IndexedDB
+function loadProductsToIndex() {
+    openDatabase().then((db) => {
+        const transaction = db.transaction('products', 'readonly');
+        const store = transaction.objectStore('products');
+
+        const request = store.getAll();  // Get all products from the object store
+
+        request.onsuccess = (event) => {
+            const products = event.target.result;
+            displayProductsOnIndexPage(products);
+        };
+
+        request.onerror = (event) => {
+            console.error('Error loading products:', event.target.error);
+        };
+    }).catch((error) => {
+        console.error('Error opening the database:', error);
+    });
+}
+
+// Call the function when index.html is loaded
+document.addEventListener('DOMContentLoaded', loadProductsToIndex);

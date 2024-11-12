@@ -493,7 +493,7 @@ img {
 .product-item {
     text-align: center;
     border: 1px solid #ddd;
-    border-radius: 30px;
+    border-radius: 20px;
 }
 
 .product-item .description {
